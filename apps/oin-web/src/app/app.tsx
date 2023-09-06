@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-05 17:50:50
- * @LastEditTime: 2023-09-05 18:28:17
+ * @LastEditTime: 2023-09-06 15:38:05
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/app/app.tsx
  */
@@ -16,12 +16,6 @@ export function App() {
       <div className="p-[20px] rounded-[40px] bg-slate-600">CONTENT</div>
       <NxWelcome title="oin-web" />
 
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
       <div role="navigation">
         <ul>
           <li>
