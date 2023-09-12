@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { MembershipLevelEntity } from './membership-level.entity';
+import { UserRoleEntity } from './user-role.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -33,4 +34,8 @@ export class UserEntity {
   @ManyToOne(() => MembershipLevelEntity)
   @JoinColumn({ name: 'membership_level_id' })
   membershipLevel: MembershipLevelEntity; // 用户会员等级
+
+  @ManyToOne(() => UserRoleEntity)
+  @JoinColumn({ name: 'role' })
+  role: UserRoleEntity; // 用户会员等级
 }

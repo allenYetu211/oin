@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:52:58
- * @LastEditTime: 2023-09-11 14:37:26
+ * @LastEditTime: 2023-09-12 14:18:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.controller.ts
  */
@@ -53,5 +53,16 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: number): Promise<void> {
     return this.userService.remove(id);
+  }
+
+  /**
+   * 更新用户等级 TODO :
+   */
+  @Put('/updateMembershipLevel/:id')
+  updateMembershipLevel(
+    @Body() body: { level: number },
+    @Param('id') user_id: number
+  ): Promise<UserEntity> {
+    return this.userService.updateMembershipLevel(user_id, body.level);
   }
 }
