@@ -13,7 +13,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MembershipLevelEntity } from '../../entitys/membership-level.entity';
+import { MembershipLevelEntity } from '~server/app/entitys/membership-level.entity';
 
 @Injectable()
 export class MembershipService implements OnModuleInit {

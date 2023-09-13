@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-12 11:01:22
- * @LastEditTime: 2023-09-12 11:31:39
+ * @LastEditTime: 2023-09-13 10:56:45
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/membership/membership.controller.ts
  */
@@ -10,9 +10,9 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MembershipService } from './membership.service';
-import { MembershipLevelEntity } from '../../entitys/membership-level.entity';
+import { MembershipLevelEntity } from '~server/app/entitys/membership-level.entity';
 
 @Controller('membership')
 export class MembershipController {

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:52:58
- * @LastEditTime: 2023-09-12 14:18:38
+ * @LastEditTime: 2023-09-13 10:53:29
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.controller.ts
  */
@@ -19,8 +19,8 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
+import { UserEntity } from '~server/app/entitys/user.entity';
 import { UserService } from './user.service';
-import { UserEntity } from '../../entitys/user.entity';
 
 @Controller('users')
 export class UserController {

@@ -9,7 +9,7 @@
 import { MembershipService } from './membership.service';
 import { MembershipController } from './membership.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MembershipLevelEntity } from '../../entitys/membership-level.entity';
+import { MembershipLevelEntity } from '~server/app/entitys/membership-level.entity';
 /*
 https://docs.nestjs.com/modules
 */

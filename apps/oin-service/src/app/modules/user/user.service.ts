@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-09-12 18:32:46
+ * @LastEditTime: 2023-09-13 11:02:53
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -12,10 +12,10 @@ https://docs.nestjs.com/providers#services
 import { Injectable, ConflictException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryFailedError } from 'typeorm';
-import { UserEntity } from '../../entitys/user.entity';
-import { MembershipService } from '../membership/membership.service';
-import { RoleService } from '../role/role.service';
-import { LoggerService } from '../../common/logger/logger.service';
+import { UserEntity } from '~server/app/entitys/user.entity';
+import { MembershipService } from '~server/app/modules/membership/membership.service';
+import { RoleService } from '~server/app/modules/role/role.service';
+import { logger } from '~server/app/common/utils/logger';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -23,8 +23,7 @@ export class UserService implements OnModuleInit {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly membershipService: MembershipService,
-    private readonly roleService: RoleService,
-    private readonly logger: LoggerService
+    private readonly roleService: RoleService
   ) {}
 
   async onModuleInit() {
@@ -80,7 +79,7 @@ export class UserService implements OnModuleInit {
       const role = await this.roleService.findOne(1);
       user.membershipLevel = membershipLevel;
       user.role = role;
-      this.logger.log(JSON.stringify(user));
+      logger.info(JSON.stringify(user));
       return await this.userRepository.save(user);
     } catch (error) {
       if (
