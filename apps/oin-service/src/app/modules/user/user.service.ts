@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-09-13 11:02:53
+ * @LastEditTime: 2023-09-13 17:27:42
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -11,7 +11,7 @@ https://docs.nestjs.com/providers#services
 */
 import { Injectable, ConflictException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, QueryFailedError } from 'typeorm';
+import { Repository, QueryFailedError, FindOptionsWhere } from 'typeorm';
 import { UserEntity } from '~server/app/entitys/user.entity';
 import { MembershipService } from '~server/app/modules/membership/membership.service';
 import { RoleService } from '~server/app/modules/role/role.service';
@@ -60,11 +60,15 @@ export class UserService implements OnModuleInit {
       .getRawMany();
   }
 
-  async findOne(user_id: number): Promise<UserEntity> {
+  async findOne(
+    option: FindOptionsWhere<UserEntity> | FindOptionsWhere<UserEntity>[]
+  ): Promise<UserEntity> {
+    // async findOne(user_id: number): Promise<UserEntity> {
     return await this.userRepository.findOne({
-      where: { user_id },
+      where: option,
+      // where: { user_id },
       select: ['user_id', 'username', 'email', 'created_at', 'updated_at'],
-      relations: ['membershipLevel'],
+      relations: ['membershipLevel', 'role'],
     });
   }
 
@@ -96,7 +100,7 @@ export class UserService implements OnModuleInit {
 
   async update(user_id: number, user: UserEntity): Promise<UserEntity> {
     await this.userRepository.update(user_id, user);
-    return await this.findOne(user_id);
+    return await this.findOne({ user_id });
   }
 
   async remove(user_id: number): Promise<void> {

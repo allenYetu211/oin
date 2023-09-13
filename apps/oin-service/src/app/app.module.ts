@@ -1,8 +1,10 @@
+import { LoginModule } from './modules/login/login.module';
+import { AuthModule } from './modules/auth/auth.module';
 /*
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-05 18:22:16
- * @LastEditTime: 2023-09-13 10:55:28
+ * @LastEditTime: 2023-09-13 11:42:24
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/app.module.ts
  */
@@ -28,6 +30,8 @@ dotenv.config();
 
 @Module({
   imports: [
+    LoginModule,
+    AuthModule,
     RoleModule,
     UserModule,
     MembershipModule,
