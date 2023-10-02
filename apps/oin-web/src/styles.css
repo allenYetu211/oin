@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.vc-switch {
+  right: auto !important;
+  left: 10px !important;
+}
+
+
+.amap-control.amap-geolocation {
+  bottom: 100px !important;
+}

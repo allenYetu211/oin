@@ -1,7 +1,17 @@
+/*
+ * @Author: error: git config user.name & please set dead value or install git
+ * @Email:  error: git config user.email & please set dead value or install git
+ * @Date: 2023-09-05 17:50:50
+ * @LastEditTime: 2023-10-01 19:53:56
+ * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @FilePath: /oin/apps/oin-web/vite.config.ts
+ */
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import basicSsl from '@vitejs/plugin-basic-ssl'
+
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/oin-web',
@@ -16,7 +26,7 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), nxViteTsPaths()],
+  plugins: [basicSsl(), react(), nxViteTsPaths()],
 
   // Uncomment this if you are using workers.
   // worker: {

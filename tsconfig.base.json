@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@oin/local": ["libs/local/src/index.ts"],
+      "@oin/maps": ["libs/maps/src/index.ts"],
+      "@oin/ui": ["libs/ui/src/index.ts"],
       "~server/*": ["./apps/oin-service/src/*"]
     }
   },

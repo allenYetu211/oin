@@ -2,50 +2,18 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-05 17:50:50
- * @LastEditTime: 2023-09-06 15:38:05
+ * @LastEditTime: 2023-10-02 12:38:15
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/app/app.tsx
  */
-import NxWelcome from './nx-welcome';
+import { MapsComp } from './maps';
 
 import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
   return (
-    <div>
-      <div className="p-[20px] rounded-[40px] bg-slate-600">CONTENT</div>
-      <NxWelcome title="oin-web" />
-
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
+    <div className="mb-20">
+      <MapsComp />
     </div>
   );
 }

@@ -29,6 +29,8 @@
       "configurations": {
         "development": {
           "buildTarget": "oin-web:build:development",
+          "host": true,
+          "https": true,
           "hmr": true
         },
         "production": {
