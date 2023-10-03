@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-26 00:00:55
- * @LastEditTime: 2023-10-03 18:24:10
+ * @LastEditTime: 2023-10-03 18:28:54
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/app/maps/index.tsx
  */
@@ -123,7 +123,7 @@ export function MapsComp(props: MapsProps) {
                 <ModalHeader className="flex flex-col gap-1">
                   Recording History
                 </ModalHeader>
-                <ModalBody>
+                <ModalBody className="overflow-auto">
                   {!!walkHistory.length && (
                     <Listbox
                       aria-label="User Menu"
