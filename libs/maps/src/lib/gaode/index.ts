@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-26 00:09:34
- * @LastEditTime: 2023-10-02 23:08:29
+ * @LastEditTime: 2023-10-03 18:24:25
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/maps/src/lib/gaode/index.ts
  */
@@ -13,6 +13,11 @@ declare global {
     _AMapSecurityConfig: any;
   }
 }
+
+type WalkType = {
+  time: number;
+  timer: number;
+};
 
 window._AMapSecurityConfig = {
   securityJsCode: '54ef9c2dbeb72147559c8a597c742e1a',
@@ -28,10 +33,10 @@ export class AMap {
   public M: any = null;
   private AMap: any = null;
   private _geolocationFunc: any;
-  private currentLocaltion: number[] = [];
-  // public locationRecord: number[][] = [];
-  public locationRecord: number[][] = db;
-  private pollIntervalId: NodeJS.Timer | undefined;
+  private _currentLocaltion: number[] = [];
+  private _locationRecord: number[][] = [];
+  // public locationRecord: number[][] = db;
+  private _pollIntervalId: NodeJS.Timer | undefined;
 
   constructor(elemetn: HTMLElement) {
     this.init(elemetn);
@@ -107,17 +112,17 @@ export class AMap {
     });
   }
 
-  private _citySearch() {
-    this.M.plugin('AMap.CitySearch', () => {
-      var citySearch = new this.AMap.CitySearch();
-      citySearch.getLocalCity(function (status: any, result: any) {
-        if (status === 'complete' && result.info === 'OK') {
-          // 查询成功，result即为当前所在城市信息
-          console.log('result', result);
-        }
-      });
-    });
-  }
+  // private _citySearch() {
+  //   this.M.plugin('AMap.CitySearch', () => {
+  //     var citySearch = new this.AMap.CitySearch();
+  //     citySearch.getLocalCity(function (status: any, result: any) {
+  //       if (status === 'complete' && result.info === 'OK') {
+  //         // 查询成功，result即为当前所在城市信息
+  //         console.log('result', result);
+  //       }
+  //     });
+  //   });
+  // }
 
   private _geolocation() {
     this.AMap.plugin('AMap.Geolocation', () => {
@@ -127,7 +132,7 @@ export class AMap {
         timeout: 10000, //超过10秒后停止定位，默认：5s
         showButton: true, //显示定位按钮，默认：true
         buttonPosition: 'RT', //定位按钮的停靠位置
-        buttonOffset: new this.AMap.Pixel(80, 120), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonOffset: new this.AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
         convert: true,
         /**
          *
@@ -137,8 +142,7 @@ export class AMap {
             2: PC上禁止使用浏览器定位
             3: 所有终端禁止使用浏览器定位
          */
-
-        noIpLocate: 3,
+        noIpLocate: 0,
         GeoLocationFirst: true, // 默认为false，设置为true的时候可以调整PC端为优先使用浏览器定位，失败后使用IP定位
         zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
       });
@@ -148,22 +152,18 @@ export class AMap {
       const func = (callback?: (result: any) => void) => {
         geolocation.getCurrentPosition((status: any, result: any) => {
           if (status == 'complete') {
-            onComplete(result);
+            /**
+             * 在此回调函数当中需要拿到对应的坐标，然后添加到路径当中。
+             */
             callback && callback(result);
           } else {
             onError(result);
-            console.log('result', result);
           }
         });
       };
       /** 存储触控方法 */
       this._geolocationFunc = func;
       func();
-
-      function onComplete(data: any) {
-        console.log('data onComplete', data);
-        // 调用成功，返回定位信息
-      }
 
       function onError(data: any) {
         console.log(`定位失败: ${data.message}`);
@@ -174,17 +174,50 @@ export class AMap {
   /**
    * 轮训触发，获取当前的定位信息
    */
-  private pollWatchLocationPosition() {
-    this.pollIntervalId = setInterval(() => {
+  private _pollWatchLocationPosition() {
+    this.M.setZoom(17);
+    this._pollIntervalId = setInterval(() => {
       this._geolocationFunc &&
         this._geolocationFunc((result: any) => {
           /** 记录轨迹 */
           const lnglat = [result.position.lng, result.position.lat];
-          this.currentLocaltion = lnglat;
-          this.locationRecord.push(lnglat);
-          this.M.setZoom(17);
+          this._currentLocaltion = lnglat;
+          this._drawWalkLine(lnglat);
         });
-    }, 1000);
+    }, 5000);
+  }
+
+  /**
+   * 修改内容
+   */
+  private _createDrawPolyline(line: number[][]) {
+    const g_lnglat = this._tGaodeLnglat(line);
+    const polylines =  new this.AMap.Polyline({
+      path: g_lnglat,
+      borderWeight: 2, // 线条宽度，默认为 1
+      strokeColor: 'red', // 线条颜色
+      lineJoin: 'round', // 折线拐点连接处样式
+    });
+    return polylines
+  }
+
+  /**
+   * 实时运动轨迹记录
+   */
+  private _drawWalkLine(lnglat: number[]) {
+    // 先删除已经绘制的线条， 在添加一条新的线条
+    if (this._locationRecord.length) {
+      this._locationRecord.push(lnglat);
+    } else {
+      this.M.remove(this._locationRecord);
+      this._locationRecord.unshift(lnglat);
+    }
+
+    this.M.setCenter(lnglat);
+
+    const polyline = this._createDrawPolyline(this._locationRecord);
+
+    this.M.add(polyline);
   }
 
   /**
@@ -192,57 +225,79 @@ export class AMap {
    */
   public startMoveRecord() {
     // 开始监听定位
-    // this.pollWatchLocationPosition();
+    this._pollWatchLocationPosition();
+    // 本地模拟测试
+    // this.TestRecording()
   }
 
   /**
    * 停止运动
    */
-  public endMoveRecord() {
-    if (this.pollIntervalId) {
-      clearInterval(this.pollIntervalId);
-      // TODO 清除轨迹，生成一次记录。
+  public endMoveRecord(walk: WalkType) {
+    if (this._pollIntervalId) {
+      clearInterval(this._pollIntervalId);
+      this._seveLocalWalkHistory(walk);
     }
   }
 
   /**
    * 历史线路查看
    */
-  public drawMapLine() {
-
-    /**
-     *
-     * @returns 转换高德坐标
-     */
-    const tGaodeLnglat = () => {
-      console.log('this.locationRecord', this.locationRecord);
-      return this.locationRecord.map(
-        (item) => new this.AMap.LngLat(item[0], item[1])
-      );
-    };
-    const g_lnglat = tGaodeLnglat();
-
-    this.M.setCenter(this.locationRecord[0]);
-    /**
-     * 生成高德坐标线路
-     */
-    const polyline = this.AMap.Polyline({
-      path: g_lnglat,
-      borderWeight: 2, // 线条宽度，默认为 1
-      strokeColor: 'red', // 线条颜色
-      lineJoin: 'round', // 折线拐点连接处样式
-    });
-
+  public historyDrawMapLine(line: number[][]) {
+    const polyline = this._createDrawPolyline(line);
     this.M.add(polyline);
+    this.M.setCenter(line[0]);
     this.M.setFitView();
+  }
+
+  /**
+   * 转换成高德坐标
+   */
+  private _tGaodeLnglat(line: number[][]) {
+    return line.map((item) => new this.AMap.LngLat(item[0], item[1]));
   }
 
   /**
    * Test recording
    */
   public TestRecording() {
-    setInterval(() => {
-      this.locationRecord.push();
-    }, 1000);
+    this._pollIntervalId = setInterval(() => {
+      // 截取 db 第一位，添加至 locationRecord
+      const firstLnglat = db.shift();
+      if (!firstLnglat) {
+        this._pollIntervalId && clearInterval(this._pollIntervalId);
+        return;
+      }
+      this._drawWalkLine(firstLnglat as number[]);
+    }, 2000);
+  }
+
+  /**
+   * 存储 localStorage
+   */
+  private _seveLocalWalkHistory(walk: WalkType) {
+    const storeWalkHistory = this.getLocalWalkHistory();
+    let walkHistory = [];
+    if (storeWalkHistory) {
+      if (Array.isArray(storeWalkHistory)) {
+        walkHistory = storeWalkHistory;
+      } else {
+        walkHistory = [];
+      }
+    }
+    walkHistory.push({
+      ...walk,
+      walkRecord: this._locationRecord,
+    });
+    localStorage.setItem('walkHistory', JSON.stringify(walkHistory));
+    this._locationRecord = [];
+  }
+
+  /**
+   * 获取本地 localwalkhistory
+   */
+  public getLocalWalkHistory() {
+    const walkHistory = localStorage.getItem('walkHistory');
+    return JSON.parse(walkHistory || '[]');
   }
 }
