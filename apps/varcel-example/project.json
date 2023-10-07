@@ -1,7 +1,7 @@
 {
-  "name": "oin-web",
+  "name": "varcel-example",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/oin-web/src",
+  "sourceRoot": "apps/varcel-example/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "/Users/Allen/Desktop/yetu.cc/oin_mobile/local_web"
+        "outputPath": "dist/apps/varcel-example"
       },
       "configurations": {
         "development": {
@@ -24,16 +24,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "oin-web:build"
+        "buildTarget": "varcel-example:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "oin-web:build:development",
-          "host": true,
+          "buildTarget": "varcel-example:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "oin-web:build:production",
+          "buildTarget": "varcel-example:build:production",
           "hmr": false
         }
       }
@@ -42,14 +41,14 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "oin-web:build"
+        "buildTarget": "varcel-example:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "oin-web:build:development"
+          "buildTarget": "varcel-example:build:development"
         },
         "production": {
-          "buildTarget": "oin-web:build:production"
+          "buildTarget": "varcel-example:build:production"
         }
       }
     },
@@ -58,14 +57,14 @@
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/oin-web"
+        "reportsDirectory": "../../coverage/apps/varcel-example"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/oin-web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/varcel-example/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

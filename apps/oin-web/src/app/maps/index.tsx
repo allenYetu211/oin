@@ -2,14 +2,14 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-26 00:00:55
- * @LastEditTime: 2023-10-03 18:28:54
+ * @LastEditTime: 2023-10-04 13:00:14
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/app/maps/index.tsx
  */
 /* eslint-disable-next-line */
 import { AMap } from '@oin/maps';
 import { Key, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { convertToTimeFormat } from '@oin/utils';
+// import { convertToTimeFormat } from '@oin/utils';
 import * as dayjs from 'dayjs';
 
 import {
@@ -26,6 +26,20 @@ import {
 
 // import { ObtainLocal } from '@oin/local';
 // import useFetch from 'use-http';
+
+const convertToTimeFormat = (number: number) => {
+  if (typeof number !== 'number' || number < 0) {
+    return '无效输入';
+  }
+
+  const minutes = Math.floor(number / 60);
+  const seconds = number % 60;
+
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(seconds).padStart(2, '0');
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
 
 export interface MapsProps {}
 

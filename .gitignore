@@ -6,7 +6,7 @@ tmp
 /out-tsc
 
 # dependencies
-node_modules
+./node_modules
 
 # IDEs and editors
 /.idea
@@ -116,4 +116,5 @@ apps/oin-native-e2e/artifacts
 apps/oin-native-e2e/artifacts
 apps/oin-native/oin-native-e2e/artifacts
 apps/oin-native-e2e/artifacts
+apps/mobile-e2e/artifacts
 apps/mobile-e2e/artifacts

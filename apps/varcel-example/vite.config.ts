@@ -1,22 +1,10 @@
-/*
- * @Author: error: git config user.name & please set dead value or install git
- * @Email:  error: git config user.email & please set dead value or install git
- * @Date: 2023-09-05 17:50:50
- * @LastEditTime: 2023-10-05 13:39:13
- * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /oin/apps/oin-web/vite.config.ts
- */
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/oin-web',
-  base: './',
-  build: {
-    target: 'es2015',
-  },
+  cacheDir: '../../node_modules/.vite/varcel-example',
 
   server: {
     port: 4200,
