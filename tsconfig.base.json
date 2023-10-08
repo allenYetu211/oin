@@ -15,11 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@libs/ui": ["libs/ui/src/index.ts"],
       "@oin/local": ["libs/local/src/index.ts"],
       "@oin/maps": ["libs/maps/src/index.ts"],
-      "@oin/ui": ["libs/ui/src/index.ts"],
       "@oin/utils": ["libs/utils/src/index.ts"],
-      "@server/*": ["./apps/oin-service/src/*"]
+      "@server/*": ["./apps/oin-service/src/*"],
+      "@yoota/*": ["./apps/yoota/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

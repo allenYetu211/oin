@@ -54,6 +54,13 @@
       },
       "library": {
         "style": "none",
+        "linter": "eslint",
+        "unitTestRunner": "none"
+      }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "none",
         "linter": "eslint"
       }
     }

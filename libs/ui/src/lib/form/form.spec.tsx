@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Button from './button';
+import Form from './form';
 
-describe('Button', () => {
+describe('Form', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Button />);
+    const { baseElement } = render(<Form />);
     expect(baseElement).toBeTruthy();
   });
 });

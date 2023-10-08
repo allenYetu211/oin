@@ -119,3 +119,6 @@ apps/oin-native-e2e/artifacts
 apps/mobile-e2e/artifacts
 apps/mobile-e2e/artifacts
 .vercel
+
+# Next.js
+.next
