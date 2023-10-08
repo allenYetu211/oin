@@ -11,9 +11,9 @@ https://docs.nestjs.com/controllers#controllers
 */
 
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from '~server/app/guard/local-auth.guard';
-import { AuthService } from '~server/app/modules/auth/auth.service';
-import { UserEntity } from '~server/app/entitys/user.entity';
+import { LocalAuthGuard } from '@server/app/guard/local-auth.guard';
+import { AuthService } from '@server/app/modules/auth/auth.service';
+import { UserEntity } from '@server/app/entitys/user.entity';
 
 @Controller('auth')
 export class LoginController {

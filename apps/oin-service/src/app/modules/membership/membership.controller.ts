@@ -12,7 +12,7 @@ https://docs.nestjs.com/controllers#controllers
 
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MembershipService } from './membership.service';
-import { MembershipLevelEntity } from '~server/app/entitys/membership-level.entity';
+import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity';
 
 @Controller('membership')
 export class MembershipController {

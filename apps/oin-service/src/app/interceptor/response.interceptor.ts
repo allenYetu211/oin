@@ -18,7 +18,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { ResponseSucceedDTO } from '~server/app/dto/common.dto';
+import { ResponseSucceedDTO } from '@server/app/dto/common.dto';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

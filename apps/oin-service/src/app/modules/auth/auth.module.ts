@@ -7,7 +7,7 @@
  * @FilePath: /oin/apps/oin-service/src/app/modules/auth/auth.module.ts
  */
 import { Module } from '@nestjs/common';
-import { UserModule } from '~server/app/modules/user/user.module';
+import { UserModule } from '@server/app/modules/user/user.module';
 import { AuthService } from './auth.service';
 
 import { JwtModule } from '@nestjs/jwt';

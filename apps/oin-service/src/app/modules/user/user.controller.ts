@@ -21,10 +21,10 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { LoginAuthGuard } from '~server/app/guard/login-auth.guard';
-import { UserEntity } from '~server/app/entitys/user.entity';
-import { PermissionGuard } from '~server/app/guard/permission.guard';
-import { Permissions } from '~server/app/decorator/permission.decorator';
+import { LoginAuthGuard } from '@server/app/guard/login-auth.guard';
+import { UserEntity } from '@server/app/entitys/user.entity';
+import { PermissionGuard } from '@server/app/guard/permission.guard';
+import { Permissions } from '@server/app/decorator/permission.decorator';
 import { UserService } from './user.service';
 
 @Controller('users')

@@ -12,25 +12,25 @@ import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { entitys } from '~server/app/entitys';
+import { entitys } from '@server/app/entitys';
 
 /**
  * filter
  */
-import { DuplicateExceptionFilter } from '~server/app/filters/duplicate-exception.filter';
-import { GlobalExceptionFilter } from '~server/app/filters/global-exception.filter';
+import { DuplicateExceptionFilter } from '@server/app/filters/duplicate-exception.filter';
+import { GlobalExceptionFilter } from '@server/app/filters/global-exception.filter';
 
 /**
  * modules
  */
-import { UserModule } from '~server/app/modules/user/user.module';
-import { MembershipModule } from '~server/app/modules/membership/membership.module';
-import { RoleModule } from '~server/app/modules/role/role.module';
+import { UserModule } from '@server/app/modules/user/user.module';
+import { MembershipModule } from '@server/app/modules/membership/membership.module';
+import { RoleModule } from '@server/app/modules/role/role.module';
 
 /**
  * interceptor
  */
-import { ResponseInterceptor } from '~server/app/interceptor/response.interceptor';
+import { ResponseInterceptor } from '@server/app/interceptor/response.interceptor';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

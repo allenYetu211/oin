@@ -13,7 +13,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRoleEntity } from '~server/app/entitys/user-role.entity';
+import { UserRoleEntity } from '@server/app/entitys/user-role.entity';
 
 @Injectable()
 export class RoleService implements OnModuleInit {

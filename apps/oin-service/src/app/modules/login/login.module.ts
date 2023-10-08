@@ -8,7 +8,7 @@
  */
 
 import { Module } from '@nestjs/common';
-import { AuthModule } from '~server/app/modules/auth/auth.module';
+import { AuthModule } from '@server/app/modules/auth/auth.module';
 
 import { LoginController } from './login.controller';
 import { LoginService } from './login.service';

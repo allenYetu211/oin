@@ -16,7 +16,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ResponseErrorDTO } from '~server/app/dto/common.dto';
+import { ResponseErrorDTO } from '@server/app/dto/common.dto';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {

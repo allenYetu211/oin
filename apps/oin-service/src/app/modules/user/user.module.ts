@@ -15,9 +15,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 
-import { MembershipModule } from '~server/app/modules/membership/membership.module';
-import { RoleModule } from '~server/app/modules/role/role.module';
-import { UserEntity } from '~server/app/entitys/user.entity';
+import { MembershipModule } from '@server/app/modules/membership/membership.module';
+import { RoleModule } from '@server/app/modules/role/role.module';
+import { UserEntity } from '@server/app/entitys/user.entity';
 
 @Module({
   imports: [

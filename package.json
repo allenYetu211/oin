@@ -65,6 +65,7 @@
     "metro-babel-register": "0.76.7",
     "metro-config": "0.76.7",
     "metro-resolver": "0.76.7",
+    "next:app": "link:@nx/next:app",
     "nx": "16.7.4",
     "nx-cloud": "latest",
     "postcss": "8.4.21",

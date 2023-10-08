@@ -12,10 +12,10 @@ https://docs.nestjs.com/providers#services
 import { Injectable, ConflictException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryFailedError, FindOptionsWhere } from 'typeorm';
-import { UserEntity } from '~server/app/entitys/user.entity';
-import { MembershipService } from '~server/app/modules/membership/membership.service';
-import { RoleService } from '~server/app/modules/role/role.service';
-import { logger } from '~server/app/common/utils/logger';
+import { UserEntity } from '@server/app/entitys/user.entity';
+import { MembershipService } from '@server/app/modules/membership/membership.service';
+import { RoleService } from '@server/app/modules/role/role.service';
+import { logger } from '@server/app/common/utils/logger';
 
 @Injectable()
 export class UserService implements OnModuleInit {
