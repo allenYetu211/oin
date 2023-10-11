@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-10-11 14:29:45
+ * @LastEditTime: 2023-10-11 17:40:54
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -35,10 +35,8 @@ export class UserService implements OnModuleInit {
       const defaultUser: Partial<UserEntity> = {
         username: process.env.OIN_USERNAME || 'utauu',
         password: process.env.OIN_PASSWORD || 'utauu123',
-        email: '',
       };
 
-      console.log('defaultUser', defaultUser)
       const membershipLevel = await this.membershipService.findMembershipLevel(
         999
       );
@@ -76,16 +74,14 @@ export class UserService implements OnModuleInit {
 
   async create(user: UserEntity): Promise<UserEntity> {
     try {
-      /**
-       * 新建用户默认等级 为 1
-       */
+      // 新建用户的会员的等级为 1
       const membershipLevel = await this.membershipService.findMembershipLevel(
         1
       );
+      // 新建用户的角色的等级为 1
       const role = await this.roleService.findOne(1);
       user.membershipLevel = membershipLevel;
       user.role = role;
-      logger.info(JSON.stringify(user));
       return await this.userRepository.save(user);
     } catch (error) {
       if (

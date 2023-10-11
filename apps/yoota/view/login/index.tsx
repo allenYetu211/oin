@@ -26,13 +26,8 @@ import { setAuthOinState } from '@oin/store';
  */
 export const LoginView = () => {
   const { data, error, runAsync, loading } = useRequest(
-    (submitdata) => {
-      return postAuthLogin(submitdata);
-    },
-
-    {
-      manual: true,
-    }
+    (submitdata) => postAuthLogin(submitdata),
+    { manual: true }
   );
 
   //  提交登录表单

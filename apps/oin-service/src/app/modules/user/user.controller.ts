@@ -31,6 +31,10 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * 查询所有的用户
+   * 用户权限: 管理员2、所有者3
+   */
   @Get()
   @Permissions('1')
   @UseGuards(LoginAuthGuard, PermissionGuard)
@@ -38,19 +42,36 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  /**
+   * 查询单个用户
+   * 用户权限: 管理员2、所有者3
+   */
   @Get(':id')
-  @Permissions('2')
+  @Permissions('1')
   @UseGuards(LoginAuthGuard, PermissionGuard)
   findOne(@Param('id') id: number): Promise<UserEntity> {
     return this.userService.findOne({ user_id: id });
   }
 
+  /**
+   * 账号密码创建用户创建用户
+   */
   @Post()
   create(@Body() user: UserEntity): Promise<UserEntity> {
-    console.log('user', user);
     return this.userService.create(user);
   }
 
+  /**
+   * 账号密码创建用户创建用户
+   */
+  @Post()
+  createGoolge(@Body() user: UserEntity): Promise<UserEntity> {
+    return this.userService.create(user);
+  }
+
+  /**
+   * 更新用户信息
+   */
   @Put(':id')
   @UseGuards(LoginAuthGuard)
   update(

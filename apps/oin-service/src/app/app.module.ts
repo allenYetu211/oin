@@ -4,7 +4,7 @@ import { AuthModule } from './modules/auth/auth.module';
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-05 18:22:16
- * @LastEditTime: 2023-09-14 10:20:35
+ * @LastEditTime: 2023-10-11 17:20:10
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/app.module.ts
  */
@@ -32,9 +32,6 @@ import { RoleModule } from '@server/app/modules/role/role.module';
  */
 import { ResponseInterceptor } from '@server/app/interceptor/response.interceptor';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -56,7 +53,9 @@ dotenv.config();
       synchronize: true, // 在每次应用程序启动时自动创建数据库表（开发环境中使用）
     }),
   ],
-  controllers: [AppController],
+  controllers: [
+    // AppController
+  ],
   providers: [
     {
       provide: APP_FILTER,
@@ -70,7 +69,7 @@ dotenv.config();
       provide: APP_INTERCEPTOR,
       useClass: ResponseInterceptor,
     },
-    AppService,
+    // AppService,
   ],
   exports: [],
 })

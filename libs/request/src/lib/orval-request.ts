@@ -31,13 +31,14 @@ AXIOS_INSTANCE.interceptors.request.use(
       headers.Authorization = `Bearer ${token}`;
     }
 
-    console.log('headers', headers);
     return Promise.resolve(config);
   }
 );
 
 AXIOS_INSTANCE.interceptors.response.use(
   (response: AxiosResponse<any, any>) => {
+
+    console.log('response', response)
     if (response.status === 400) {
       return Promise.reject(response.data.message);
     }
@@ -48,7 +49,6 @@ AXIOS_INSTANCE.interceptors.response.use(
     }
 
     const { data } = response;
-    console.log('data.statusCode  > 201', data.statusCode > 201);
     if (data.statusCode > 201) {
       return Promise.reject(data.message);
     }
@@ -69,7 +69,7 @@ export const onResponseData = (
   if (!response) {
     return Promise.reject('response is null');
   }
-
+  console.log('response>>>>', response)
   const { data } = response;
 
   return Promise.resolve(data);
