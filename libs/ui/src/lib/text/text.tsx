@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-07-02 02:29:02
- * @LastEditTime: 2023-10-08 15:22:28
+ * @LastEditTime: 2023-10-09 14:44:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/ui/src/lib/text/text.tsx
  */
@@ -20,10 +20,10 @@ const textsVariants = cva('flex items-center text-left leading-none', {
       h4: 'text-[12px]',
     },
     textColor: {
-      default: 'white',
-      black: 'black',
-      warning: 'red',
-      error: 'red',
+      default: 'text-zinc-800',
+      white: 'text-zinc-100',
+      warning: 'text-amber-300',
+      error: 'text-rose-600',
     },
   },
   defaultVariants: {

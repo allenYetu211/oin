@@ -2,13 +2,12 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-10-08 17:52:46
- * @LastEditTime: 2023-10-08 17:53:59
+ * @LastEditTime: 2023-10-09 10:09:42
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/ui/src/lib/form/form.tsx
  */
 'use client';
 
-import { FC, PropsWithChildren, ReactNode } from 'react';
 import {
   useForm,
   SubmitHandler,
