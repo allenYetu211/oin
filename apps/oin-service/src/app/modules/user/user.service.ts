@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-09-13 17:27:42
+ * @LastEditTime: 2023-10-11 14:29:45
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -33,10 +33,12 @@ export class UserService implements OnModuleInit {
   private async createInitialDefaultUser() {
     try {
       const defaultUser: Partial<UserEntity> = {
-        username: process.env.OIN_USERNAME,
-        password: process.env.OIN_PASSWORD,
+        username: process.env.OIN_USERNAME || 'utauu',
+        password: process.env.OIN_PASSWORD || 'utauu123',
         email: '',
       };
+
+      console.log('defaultUser', defaultUser)
       const membershipLevel = await this.membershipService.findMembershipLevel(
         999
       );

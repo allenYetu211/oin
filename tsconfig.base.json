@@ -18,10 +18,11 @@
       "@libs/ui": ["libs/ui/src/index.ts"],
       "@oin/local": ["libs/local/src/index.ts"],
       "@oin/maps": ["libs/maps/src/index.ts"],
-      "@yoota/request": ["libs/request/src/index.ts"],
+      "@oin/store": ["libs/store/src/index.ts"],
       "@oin/utils": ["libs/utils/src/index.ts"],
       "@server/*": ["./apps/oin-service/src/*"],
-      "@yoota/*": ["./apps/yoota/*"]
+      "@yoota/*": ["./apps/yoota/*"],
+      "@yoota/request": ["libs/request/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

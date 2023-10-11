@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-10-08 16:50:39
- * @LastEditTime: 2023-10-10 15:41:35
+ * @LastEditTime: 2023-10-11 15:41:04
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/yoota/view/login/index.tsx
  */
@@ -13,9 +13,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, Text, Button } from '@libs/ui';
 import { Input } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { request } from '@yoota/request';
-import { useRequest } from 'ahooks';
+// import { request } from '@yoota/request';
+import { postAuthLogin } from '@yoota/request';
+import { useRequest, useUpdateEffect } from 'ahooks';
 import { FC } from 'react';
+import { setAuthOinState } from '@oin/store';
 
 /**
  * ------------------------------------------------------------------------------------------
@@ -24,10 +26,10 @@ import { FC } from 'react';
  */
 export const LoginView = () => {
   const { data, error, runAsync, loading } = useRequest(
-    (submitdata) =>
-      request.post(`/auth/login`, {
-        ...submitdata,
-      }),
+    (submitdata) => {
+      return postAuthLogin(submitdata);
+    },
+
     {
       manual: true,
     }
@@ -36,9 +38,16 @@ export const LoginView = () => {
   //  提交登录表单
   const onFromSubmit = async (submitValue: IFormInput) => {
     await runAsync(submitValue);
-    console.log('data', data);
-    console.log('error', error);
   };
+
+  useUpdateEffect(() => {
+    console.log('useUpdateEffect data', data);
+    if (201 === data?.statusCode) {
+      setAuthOinState({
+        'oin-token': data?.data.access_token,
+      });
+    }
+  }, [data]);
 
   return (
     <div className="w-[300px] absolute right-[10%] top-[50%] -translate-y-[50%]">
@@ -98,7 +107,6 @@ const FromLogin: FC<{
   });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    // console.log('onSubmit', data);
     onFromSubmit(data);
   };
 
@@ -111,6 +119,7 @@ const FromLogin: FC<{
           type="text"
           label="UserName"
           labelPlacement="inside"
+          defaultValue={formScheme['username']}
         />
         {errors.username && <Text textColor="error">UserName is Emtry</Text>}
       </div>
@@ -122,6 +131,7 @@ const FromLogin: FC<{
           className="h-[40px]"
           label="Password"
           type="password"
+          defaultValue={formScheme['password']}
         />
         {errors.password && <Text textColor="error">Password is Emtry</Text>}
       </div>

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-07-17 14:23:22
- * @LastEditTime: 2023-10-10 15:47:36
+ * @LastEditTime: 2023-10-11 10:50:16
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/request/src/lib/request.ts
  */
@@ -17,6 +17,7 @@ import axios, {
 // import { useSettingStore } from '~/stores';
 import * as qs from 'qs';
 import { BASE_URL } from './config';
+import { getAuthOinState } from '@oin/store';
 
 /** post types */
 declare const postTypes: ['json', 'formData', 'file'];
@@ -38,7 +39,7 @@ export const defaultRequestConfig: Partial<InternalAxiosRequestConfig> = {
 
 export interface ResponseData {
   data: { [key: string]: any };
-  code: number;
+  statusCode: number;
   msg: string;
 }
 
@@ -53,12 +54,14 @@ class RequestHttp {
   public injectInstance() {
     this.axiosInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        const token = localStorage.getItem('oin-token') || '';
+        // const token = localStorage.getItem('oin-token') || '';
+        const token = getAuthOinState('oin-token');
         const { headers } = config;
 
         if (!!token) {
           headers.Authorization = `Bearer ${token}`;
         }
+
         console.log('headers', headers)
         return Promise.resolve(config);
       }
@@ -76,8 +79,8 @@ class RequestHttp {
         }
 
         const { data } = response;
-        console.log('data.statusCode  > 201', data.statusCode  > 201)
-        if (data.statusCode  > 201) {
+        console.log('data.statusCode  > 201', data.statusCode > 201);
+        if (data.statusCode > 201) {
           return Promise.reject(data.message);
         }
 

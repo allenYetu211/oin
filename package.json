@@ -68,6 +68,7 @@
     "metro-resolver": "0.76.7",
     "nx": "16.7.4",
     "nx-cloud": "latest",
+    "orval": "^6.18.1",
     "postcss": "8.4.21",
     "prettier": "^2.8.8",
     "react-refresh": "^0.10.0",
@@ -115,9 +116,9 @@
     "tailwind-merge": "^1.14.0",
     "tslib": "^2.6.2",
     "typeorm": "^0.3.17",
-    "use-http": "^1.0.28",
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.4.3"
   }
 }
