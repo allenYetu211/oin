@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:52:58
- * @LastEditTime: 2023-09-13 18:04:28
+ * @LastEditTime: 2023-10-12 14:53:27
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.controller.ts
  */
@@ -26,10 +26,16 @@ import { UserEntity } from '@server/app/entitys/user.entity';
 import { PermissionGuard } from '@server/app/guard/permission.guard';
 import { Permissions } from '@server/app/decorator/permission.decorator';
 import { UserService } from './user.service';
+import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly phoneVerificationService: PhoneVerificationService
+  ) {}
 
   /**
    * 查询所有的用户
@@ -55,18 +61,39 @@ export class UserController {
 
   /**
    * 账号密码创建用户创建用户
+   * 1.  'username' | 'email' | 'password' 是否为空
    */
   @Post()
-  create(@Body() user: UserEntity): Promise<UserEntity> {
-    return this.userService.create(user);
+  create(
+    @Body() user: Pick<UserEntity, 'username' | 'email' | 'password'>
+  ): Promise<UserEntity> {
+    return this.userService.create(user, 'email');
   }
 
   /**
-   * 账号密码创建用户创建用户
+   * 通过 google 创建账号
    */
-  @Post()
-  createGoolge(@Body() user: UserEntity): Promise<UserEntity> {
-    return this.userService.create(user);
+  @Post('/google')
+  createGoolge(@Body() user: Pick<UserEntity, 'google'>): Promise<UserEntity> {
+    return this.userService.create(user, 'google');
+  }
+
+  /**
+   * 通过 phone 创建账号
+   */
+  @Post('/phone')
+  async createPhone(
+    @Body()
+    { phone, authCode }: Pick<UserEntity, 'phone'> & { authCode: string }
+  ): Promise<UserEntity> {
+    //  先确认验证码是否正确
+     const valid = await this.phoneVerificationService.verifyRegistration(phone, authCode);
+     console.log('valid', valid)
+     if (valid ) {
+      return this.userService.create({phone}, 'phone');
+     } else {
+      throw new HttpException('Invalid verification code', HttpStatus.BAD_REQUEST);
+     }
   }
 
   /**

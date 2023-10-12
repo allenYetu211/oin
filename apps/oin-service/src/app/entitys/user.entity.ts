@@ -37,26 +37,26 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   user_id: number; // 用户唯一标识符
 
-  
+
   @Column({ length: 50, unique: true, nullable: true })
   username: string; // 用户名
 
-  // @IsEmail()
-  // @Column({ length: 100, unique: true, nullable: true })
-  // email: string; // 电子邮件地址
+  @IsEmail()
+  @Column({ length: 100, unique: true, nullable: true })
+  email: string; // 电子邮件地址
 
-  // @Column({ length: 20, unique: true, nullable: true })
-  // phone: string; // 收集
+  @Column({ length: 20, unique: true, nullable: true })
+  phone: string; // 收集
 
-  // @Column({ length: 100, unique: true, nullable: true })
-  // google: string; // google
+  @Column({ length: 100, unique: true, nullable: true })
+  google: string; // google
 
-  // @Column({ length: 100, unique: true, nullable: true })
-  // github: string; // google
+  @Column({ length: 100, unique: true, nullable: true })
+  github: string; // google
 
-  // @IsNotEmpty()
-  // @Column()
-  // password: string; // 密码（加密存储）
+  @IsNotEmpty()
+  @Column()
+  password: string; // 密码（加密存储）
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date; // 用户创建时间
@@ -84,20 +84,20 @@ class EmailEntity {
 }
 
 
-class PhtonEntity {
-  @Column({ length: 20, unique: true, nullable: true })
-  phone: string; // phone | 验证码登录
-}
+// class PhtonEntity {
+//   @Column({ length: 20, unique: true, nullable: true })
+//   phone: string; // phone | 验证码登录
+// }
 
 
-class GoogleEntity {
-  @Column({ length: 100, unique: true, nullable: true })
-  google: string; // google
-}
+// class GoogleEntity {
+//   @Column({ length: 100, unique: true, nullable: true })
+//   google: string; // google
+// }
 
 
-class GithubEntity {
-  @Column({ length: 100, unique: true, nullable: true })
-  github: string; // github
-}
+// class GithubEntity {
+//   @Column({ length: 100, unique: true, nullable: true })
+//   github: string; // github
+// }
 

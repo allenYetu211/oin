@@ -1,10 +1,11 @@
+import { PhoneVerificationModule } from './modules/phone-verification/phone-verification.module';
 import { LoginModule } from './modules/login/login.module';
 import { AuthModule } from './modules/auth/auth.module';
 /*
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-05 18:22:16
- * @LastEditTime: 2023-10-11 17:20:10
+ * @LastEditTime: 2023-10-12 14:19:25
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/app.module.ts
  */
@@ -32,16 +33,23 @@ import { RoleModule } from '@server/app/modules/role/role.module';
  */
 import { ResponseInterceptor } from '@server/app/interceptor/response.interceptor';
 
+import { ScheduleModule } from '@nestjs/schedule';
+
+
 import dotenv from 'dotenv';
 dotenv.config();
 
 @Module({
   imports: [
+        PhoneVerificationModule,
+    PhoneVerificationModule,
     LoginModule,
     AuthModule,
     RoleModule,
     UserModule,
     MembershipModule,
+    ScheduleModule.forRoot(), // 定时任务
+
     TypeOrmModule.forRoot({
       type: 'mysql', // 数据库类型
       host: 'localhost', // 数据库主机

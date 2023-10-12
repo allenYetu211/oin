@@ -15,6 +15,7 @@
     "@babel/core": "^7.23.0",
     "@babel/preset-react": "^7.22.15",
     "@babel/runtime": "7.22.6",
+    "@nestjs/schedule": "^3.0.4",
     "@nestjs/schematics": "^10.0.2",
     "@nestjs/swagger": "^7.1.13",
     "@nestjs/testing": "^10.2.7",

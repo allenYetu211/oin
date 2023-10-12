@@ -17,6 +17,8 @@ import { UserController } from './user.controller';
 
 import { MembershipModule } from '@server/app/modules/membership/membership.module';
 import { RoleModule } from '@server/app/modules/role/role.module';
+import { PhoneVerificationModule } from '@server/app/modules/phone-verification/phone-verification.module';
+
 import { UserEntity } from '@server/app/entitys/user.entity';
 
 @Module({
@@ -24,6 +26,7 @@ import { UserEntity } from '@server/app/entitys/user.entity';
     TypeOrmModule.forFeature([UserEntity]),
     MembershipModule,
     RoleModule,
+    PhoneVerificationModule
   ],
   controllers: [UserController],
   providers: [UserService],

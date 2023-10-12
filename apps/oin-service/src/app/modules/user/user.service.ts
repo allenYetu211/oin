@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-10-11 17:40:54
+ * @LastEditTime: 2023-10-12 11:40:26
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -15,6 +15,7 @@ import { Repository, QueryFailedError, FindOptionsWhere } from 'typeorm';
 import { UserEntity } from '@server/app/entitys/user.entity';
 import { MembershipService } from '@server/app/modules/membership/membership.service';
 import { RoleService } from '@server/app/modules/role/role.service';
+import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service';
 import { logger } from '@server/app/common/utils/logger';
 
 @Injectable()
@@ -23,7 +24,8 @@ export class UserService implements OnModuleInit {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly membershipService: MembershipService,
-    private readonly roleService: RoleService
+    private readonly roleService: RoleService,
+    private readonly phoneVerificationService: PhoneVerificationService,
   ) {}
 
   async onModuleInit() {
@@ -72,7 +74,51 @@ export class UserService implements OnModuleInit {
     });
   }
 
-  async create(user: UserEntity): Promise<UserEntity> {
+  /**
+   * 通过手机创建用户
+   */
+  async createUserPhone( user: Partial<UserEntity>, authCode: string ) {
+    // 验证手机
+  }
+
+  /**
+   * 验证函数：
+   * 根据传入的内容分别做不同的判断处理
+   * 1. 账号密码创建用户创建用户
+   * 2. 通过 google 创建账号
+   * 3. 通过 github 创建账号
+   * 4. 通过 email 创建账号
+   * 5. 通过 phone 创建账号
+   */
+  async create(
+    user: Partial<UserEntity>,
+    type: 'email' | 'google' | 'phone' | 'gitlab'
+  ): Promise<UserEntity> {
+    const handlers = {
+      email: async () => {
+        return await this.findExistinguser({ email: user.email });
+      },
+      google: async () => {
+        return await this.findExistinguser({ google: user.google });
+      },
+      phone: async () => {
+        return await this.findExistinguser({ phone: user.phone });
+      },
+      gitlab: async () => {
+        return await this.findExistinguser({ github: user.github });
+      },
+    };
+
+    if (handlers[type]) {
+      try {
+        handlers[type]();
+      } catch (e) {
+        throw new ConflictException(`User with ${e} already exists`);
+      }
+    } else {
+      throw new ConflictException(`Request type ${type} is not supported`);
+    }
+
     try {
       // 新建用户的会员的等级为 1
       const membershipLevel = await this.membershipService.findMembershipLevel(
@@ -118,5 +164,19 @@ export class UserService implements OnModuleInit {
       select: ['user_id', 'username', 'email'],
       relations: ['membershipLevel'],
     });
+  }
+
+  /**
+   * 查找用户是否已经存在
+   */
+  private async findExistinguser(user: Partial<UserEntity>) {
+    const existingUser = await this.userRepository.findOne({
+      where: user,
+    });
+
+    if (existingUser) {
+      return Promise.reject('user already');
+    }
+    return Promise.resolve();
   }
 }
