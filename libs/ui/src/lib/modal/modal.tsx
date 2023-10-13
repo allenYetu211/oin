@@ -6,7 +6,7 @@ export function Modal(props: ModalProps) {
 		<div>
 			<h1>Welcome to Modal!</h1>
 		</div>
-	);
+	)
 }
 
-export default Modal;
+export default Modal

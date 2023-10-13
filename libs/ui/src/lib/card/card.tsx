@@ -11,15 +11,15 @@ import {
 	CardHeader as NextCardHeader,
 	CardBody as NextCardBody,
 	CardProps,
-} from '@nextui-org/react';
-import { PropsWithChildren, FC, forwardRef } from 'react';
-import { cn } from '@oin/utils';
+} from '@nextui-org/react'
+import { PropsWithChildren, FC, forwardRef } from 'react'
+import { cn } from '@oin/utils'
 
 type CardCustomProps = CardProps &
 	FC<PropsWithChildren> & {
-		bodyClassName?: string;
-		header?: JSX.Element;
-	};
+		bodyClassName?: string
+		header?: JSX.Element
+	}
 
 export const Card = forwardRef<HTMLDivElement, CardCustomProps>(
 	({ className, children, header, bodyClassName, ...props }, ref) => {
@@ -28,6 +28,6 @@ export const Card = forwardRef<HTMLDivElement, CardCustomProps>(
 				{header && <NextCardHeader>{header}</NextCardHeader>}
 				<NextCardBody className={cn(bodyClassName)}>{children}</NextCardBody>
 			</NextCard>
-		);
+		)
 	},
-);
+)

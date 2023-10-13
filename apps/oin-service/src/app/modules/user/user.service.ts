@@ -9,14 +9,14 @@
 /*
 https://docs.nestjs.com/providers#services
 */
-import { Injectable, ConflictException, OnModuleInit } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, QueryFailedError, FindOptionsWhere } from 'typeorm';
-import { UserEntity } from '@server/app/entitys/user.entity';
-import { MembershipService } from '@server/app/modules/membership/membership.service';
-import { RoleService } from '@server/app/modules/role/role.service';
-import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service';
-import { logger } from '@server/app/common/utils/logger';
+import { Injectable, ConflictException, OnModuleInit } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository, QueryFailedError, FindOptionsWhere } from 'typeorm'
+import { UserEntity } from '@server/app/entitys/user.entity'
+import { MembershipService } from '@server/app/modules/membership/membership.service'
+import { RoleService } from '@server/app/modules/role/role.service'
+import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service'
+import { logger } from '@server/app/common/utils/logger'
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -29,7 +29,7 @@ export class UserService implements OnModuleInit {
 	) {}
 
 	async onModuleInit() {
-		await this.createInitialDefaultUser();
+		await this.createInitialDefaultUser()
 	}
 
 	private async createInitialDefaultUser() {
@@ -37,13 +37,13 @@ export class UserService implements OnModuleInit {
 			const defaultUser: Partial<UserEntity> = {
 				username: process.env.OIN_USERNAME || 'utauu',
 				password: process.env.OIN_PASSWORD || 'utauu123',
-			};
+			}
 
-			const membershipLevel = await this.membershipService.findMembershipLevel(999);
-			const role = await this.roleService.findOne(3);
-			defaultUser.membershipLevel = membershipLevel;
-			defaultUser.role = role;
-			await this.userRepository.save(defaultUser);
+			const membershipLevel = await this.membershipService.findMembershipLevel(999)
+			const role = await this.roleService.findOne(3)
+			defaultUser.membershipLevel = membershipLevel
+			defaultUser.role = role
+			await this.userRepository.save(defaultUser)
 		} catch (e) {}
 	}
 
@@ -57,7 +57,7 @@ export class UserService implements OnModuleInit {
 				'user.created_at',
 				'user.membershipLevel',
 			])
-			.getRawMany();
+			.getRawMany()
 	}
 
 	async findOne(
@@ -69,7 +69,7 @@ export class UserService implements OnModuleInit {
 			// where: { user_id },
 			select: ['user_id', 'username', 'email', 'created_at', 'updated_at'],
 			relations: ['membershipLevel', 'role'],
-		});
+		})
 	}
 
 	/**
@@ -94,67 +94,67 @@ export class UserService implements OnModuleInit {
 	): Promise<UserEntity> {
 		const handlers = {
 			email: async () => {
-				return await this.findExistinguser({ email: user.email });
+				return await this.findExistinguser({ email: user.email })
 			},
 			google: async () => {
-				return await this.findExistinguser({ google: user.google });
+				return await this.findExistinguser({ google: user.google })
 			},
 			phone: async () => {
-				return await this.findExistinguser({ phone: user.phone });
+				return await this.findExistinguser({ phone: user.phone })
 			},
 			gitlab: async () => {
-				return await this.findExistinguser({ github: user.github });
+				return await this.findExistinguser({ github: user.github })
 			},
-		};
+		}
 
 		//
 		if (handlers[type]) {
 			try {
 				//  如果不存在则跳出 if 内容，执行后续内容。
-				await handlers[type]();
+				await handlers[type]()
 			} catch (e) {
-				throw new ConflictException(`User with ${e} already exists`);
+				throw new ConflictException(`User with ${e} already exists`)
 			}
 		} else {
-			throw new ConflictException(`Request type ${type} is not supported`);
+			throw new ConflictException(`Request type ${type} is not supported`)
 		}
 
 		try {
-			console.log('membershipLevel');
+			console.log('membershipLevel')
 			// 新建用户的会员的等级为 1
-			const membershipLevel = await this.membershipService.findMembershipLevel(1);
+			const membershipLevel = await this.membershipService.findMembershipLevel(1)
 
 			// 新建用户的角色的等级为 1
-			const role = await this.roleService.findOne(1);
-			user.membershipLevel = membershipLevel;
-			user.role = role;
-			return await this.userRepository.save(user);
+			const role = await this.roleService.findOne(1)
+			user.membershipLevel = membershipLevel
+			user.role = role
+			return await this.userRepository.save(user)
 		} catch (error) {
-			logger.error(`create user error: ${error}`);
+			logger.error(`create user error: ${error}`)
 			if (error instanceof QueryFailedError && error.message.includes('Duplicate entry')) {
-				throw new ConflictException(`Duplicate entry for ${error.message.split("'")[1]}`);
+				throw new ConflictException(`Duplicate entry for ${error.message.split("'")[1]}`)
 			}
-			throw error;
+			throw error
 		}
 	}
 
 	async update(user_id: string, user: UserEntity): Promise<UserEntity> {
-		await this.userRepository.update(user_id, user);
-		return await this.findOne({ user_id });
+		await this.userRepository.update(user_id, user)
+		return await this.findOne({ user_id })
 	}
 
 	async remove(user_id: string): Promise<void> {
-		await this.userRepository.delete(user_id);
+		await this.userRepository.delete(user_id)
 	}
 
 	async updateMembershipLevel(user_id: string, level_id: number): Promise<UserEntity> {
-		const membershipLevel = await this.membershipService.findMembershipLevel(level_id);
-		await this.userRepository.update(user_id, { membershipLevel });
+		const membershipLevel = await this.membershipService.findMembershipLevel(level_id)
+		await this.userRepository.update(user_id, { membershipLevel })
 		return await this.userRepository.findOne({
 			where: { user_id },
 			select: ['user_id', 'username', 'email'],
 			relations: ['membershipLevel'],
-		});
+		})
 	}
 
 	/**
@@ -163,11 +163,11 @@ export class UserService implements OnModuleInit {
 	private async findExistinguser(user: any) {
 		const existingUser = await this.userRepository.findOne({
 			where: user,
-		});
+		})
 
 		if (existingUser) {
-			return Promise.reject('user already');
+			return Promise.reject('user already')
 		}
-		return Promise.resolve();
+		return Promise.resolve()
 	}
 }

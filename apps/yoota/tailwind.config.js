@@ -1,11 +1,11 @@
-const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
-const { join } = require('path');
-const { nextui } = require('@nextui-org/theme');
+const { createGlobPatternsForDependencies } = require('@nx/react/tailwind')
+const { join } = require('path')
+const { nextui } = require('@nextui-org/theme')
 
 console.log(
 	'tailwind css config ',
 	`${join(__dirname, '{src,pages,components,app,view}/**/*!(*.stories|*.spec).{ts,tsx,html}')}`,
-);
+)
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -21,4 +21,4 @@ module.exports = {
 	},
 	darkMode: 'class',
 	plugins: [nextui()],
-};
+}

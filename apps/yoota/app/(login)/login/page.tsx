@@ -6,8 +6,8 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/yoota/app/(login)/login/page.tsx
  */
-import { LoginView } from '@yoota/view/login';
+import { LoginView } from '@yoota/view/login'
 
 export default function Login() {
-	return <LoginView />;
+	return <LoginView />
 }

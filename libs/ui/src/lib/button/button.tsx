@@ -8,17 +8,15 @@
  */
 /* eslint-disable-next-line */
 
-import { Button as NextButton } from '@nextui-org/react';
-import type { ButtonProps } from '@nextui-org/react';
-import { forwardRef } from 'react';
-import { cn } from '@oin/utils';
+import { Button as NextButton } from '@nextui-org/react'
+import type { ButtonProps } from '@nextui-org/react'
+import { forwardRef } from 'react'
+import { cn } from '@oin/utils'
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, color = 'primary', ...props }, ref) => {
-		return (
-			<NextButton color={color} className={cn('rounded-lg', className)} ref={ref} {...props} />
-		);
+		return <NextButton color={color} className={cn('rounded-lg', className)} ref={ref} {...props} />
 	},
-);
+)
 
-export { Button, ButtonProps };
+export { Button, ButtonProps }

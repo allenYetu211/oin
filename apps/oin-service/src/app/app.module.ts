@@ -1,6 +1,6 @@
-import { PhoneVerificationModule } from './modules/phone-verification/phone-verification.module';
-import { LoginModule } from './modules/login/login.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { PhoneVerificationModule } from './modules/phone-verification/phone-verification.module'
+import { LoginModule } from './modules/login/login.module'
+import { AuthModule } from './modules/auth/auth.module'
 /*
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
@@ -9,34 +9,34 @@ import { AuthModule } from './modules/auth/auth.module';
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/app.module.ts
  */
-import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module } from '@nestjs/common'
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { entitys } from '@server/app/entitys';
+import { entitys } from '@server/app/entitys'
 
 /**
  * filter
  */
-import { DuplicateExceptionFilter } from '@server/app/filters/duplicate-exception.filter';
-import { GlobalExceptionFilter } from '@server/app/filters/global-exception.filter';
+import { DuplicateExceptionFilter } from '@server/app/filters/duplicate-exception.filter'
+import { GlobalExceptionFilter } from '@server/app/filters/global-exception.filter'
 
 /**
  * modules
  */
-import { UserModule } from '@server/app/modules/user/user.module';
-import { MembershipModule } from '@server/app/modules/membership/membership.module';
-import { RoleModule } from '@server/app/modules/role/role.module';
+import { UserModule } from '@server/app/modules/user/user.module'
+import { MembershipModule } from '@server/app/modules/membership/membership.module'
+import { RoleModule } from '@server/app/modules/role/role.module'
 
 /**
  * interceptor
  */
-import { ResponseInterceptor } from '@server/app/interceptor/response.interceptor';
+import { ResponseInterceptor } from '@server/app/interceptor/response.interceptor'
 
-import { ScheduleModule } from '@nestjs/schedule';
+import { ScheduleModule } from '@nestjs/schedule'
 
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenv from 'dotenv'
+dotenv.config()
 
 @Module({
 	imports: [

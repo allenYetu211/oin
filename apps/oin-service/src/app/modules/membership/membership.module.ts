@@ -6,15 +6,15 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/membership/membership.module.ts
  */
-import { MembershipService } from './membership.service';
-import { MembershipController } from './membership.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity';
+import { MembershipService } from './membership.service'
+import { MembershipController } from './membership.controller'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity'
 /*
 https://docs.nestjs.com/modules
 */
 
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
 @Module({
 	imports: [TypeOrmModule.forFeature([MembershipLevelEntity])],

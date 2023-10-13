@@ -10,24 +10,14 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import {
-	Controller,
-	Get,
-	Post,
-	Body,
-	Param,
-	Put,
-	Delete,
-	UseGuards,
-	Request,
-} from '@nestjs/common';
-import { LoginAuthGuard } from '@server/app/guard/login-auth.guard';
-import { UserEntity } from '@server/app/entitys/user.entity';
-import { PermissionGuard } from '@server/app/guard/permission.guard';
-import { Permissions } from '@server/app/decorator/permission.decorator';
-import { UserService } from './user.service';
-import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards, Request } from '@nestjs/common'
+import { LoginAuthGuard } from '@server/app/guard/login-auth.guard'
+import { UserEntity } from '@server/app/entitys/user.entity'
+import { PermissionGuard } from '@server/app/guard/permission.guard'
+import { Permissions } from '@server/app/decorator/permission.decorator'
+import { UserService } from './user.service'
+import { PhoneVerificationService } from '@server/app/modules/phone-verification/phone-verification.service'
+import { HttpException, HttpStatus } from '@nestjs/common'
 
 @Controller('users')
 export class UserController {
@@ -44,7 +34,7 @@ export class UserController {
 	@Permissions('1')
 	@UseGuards(LoginAuthGuard, PermissionGuard)
 	findAll(@Request() req): Promise<UserEntity[]> {
-		return this.userService.findAll();
+		return this.userService.findAll()
 	}
 
 	/**
@@ -55,7 +45,7 @@ export class UserController {
 	@Permissions('1')
 	@UseGuards(LoginAuthGuard, PermissionGuard)
 	findOne(@Param('id') id: string): Promise<UserEntity> {
-		return this.userService.findOne({ user_id: id });
+		return this.userService.findOne({ user_id: id })
 	}
 
 	/**
@@ -64,7 +54,7 @@ export class UserController {
 	 */
 	@Post()
 	create(@Body() user: Pick<UserEntity, 'username' | 'email' | 'password'>): Promise<UserEntity> {
-		return this.userService.create(user, 'email');
+		return this.userService.create(user, 'email')
 	}
 
 	/**
@@ -72,7 +62,7 @@ export class UserController {
 	 */
 	@Post('/google')
 	createGoolge(@Body() user: Pick<UserEntity, 'google'>): Promise<UserEntity> {
-		return this.userService.create(user, 'google');
+		return this.userService.create(user, 'google')
 	}
 
 	/**
@@ -84,12 +74,12 @@ export class UserController {
 		{ phone, authCode }: Pick<UserEntity, 'phone'> & { authCode: string },
 	): Promise<UserEntity> {
 		//  先确认验证码是否正确
-		const valid = await this.phoneVerificationService.verifyRegistration(phone, authCode);
+		const valid = await this.phoneVerificationService.verifyRegistration(phone, authCode)
 		if (valid) {
-			const testInfo = await this.userService.create({ phone }, 'phone');
-			return testInfo;
+			const testInfo = await this.userService.create({ phone }, 'phone')
+			return testInfo
 		} else {
-			throw new HttpException('Invalid verification code', HttpStatus.BAD_REQUEST);
+			throw new HttpException('Invalid verification code', HttpStatus.BAD_REQUEST)
 		}
 	}
 
@@ -99,14 +89,14 @@ export class UserController {
 	@Put(':id')
 	@UseGuards(LoginAuthGuard)
 	update(@Param('id') id: string, @Body() user: UserEntity): Promise<UserEntity> {
-		return this.userService.update(id, user);
+		return this.userService.update(id, user)
 	}
 
 	@Delete(':id')
 	@Permissions('2')
 	@UseGuards(LoginAuthGuard, PermissionGuard)
 	remove(@Param('id') id: string): Promise<void> {
-		return this.userService.remove(id);
+		return this.userService.remove(id)
 	}
 
 	/**
@@ -119,6 +109,6 @@ export class UserController {
 		@Body() body: { level: number },
 		@Param('id') user_id: string,
 	): Promise<UserEntity> {
-		return this.userService.updateMembershipLevel(user_id, body.level);
+		return this.userService.updateMembershipLevel(user_id, body.level)
 	}
 }

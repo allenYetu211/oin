@@ -6,9 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/store/src/lib/auth/action.ts
  */
-import { useAuthStore, AuthTypesConfigState } from './store';
+import { useAuthStore, AuthTypesConfigState } from './store'
 
-const setSetting = useAuthStore.setState;
+const setSetting = useAuthStore.setState
 
 /**
  * ------------------------------------------------------------------------------------------
@@ -16,8 +16,8 @@ const setSetting = useAuthStore.setState;
  * ------------------------------------------------------------------------------------------
  */
 export const setAuthOinState = (newState: Partial<AuthTypesConfigState>) => {
-	setSetting(() => ({ ...newState }));
-};
+	setSetting(() => ({ ...newState }))
+}
 
 /**
  * ------------------------------------------------------------------------------------------
@@ -25,5 +25,5 @@ export const setAuthOinState = (newState: Partial<AuthTypesConfigState>) => {
  * ------------------------------------------------------------------------------------------
  */
 export const getAuthOinState = (state: keyof AuthTypesConfigState) => {
-	return useAuthStore.getState()[state];
-};
+	return useAuthStore.getState()[state]
+}

@@ -6,8 +6,8 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/webpack.config.js
  */
-const { composePlugins, withNx } = require('@nx/webpack');
-const path = require('path');
+const { composePlugins, withNx } = require('@nx/webpack')
+const path = require('path')
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
@@ -15,9 +15,9 @@ module.exports = composePlugins(withNx(), (config) => {
 	// e.g. `config.plugins.push(new MyPlugin())`
 
 	config.output.devtoolModuleFilenameTemplate = function (info) {
-		const rel = path.relative(process.cwd(), info.absoluteResourcePath);
-		console.log('rel', rel);
-		return `webpack:///./${rel}`;
-	};
-	return config;
-});
+		const rel = path.relative(process.cwd(), info.absoluteResourcePath)
+		console.log('rel', rel)
+		return `webpack:///./${rel}`
+	}
+	return config
+})

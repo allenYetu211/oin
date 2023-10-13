@@ -10,10 +10,10 @@
 https://docs.nestjs.com/providers#services
 */
 
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity';
+import { Injectable, OnModuleInit } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity'
 
 @Injectable()
 export class MembershipService implements OnModuleInit {
@@ -23,7 +23,7 @@ export class MembershipService implements OnModuleInit {
 	) {}
 
 	async onModuleInit() {
-		await this.createDefaultMembershipLevel();
+		await this.createDefaultMembershipLevel()
 	}
 
 	private async createDefaultMembershipLevel() {
@@ -31,16 +31,16 @@ export class MembershipService implements OnModuleInit {
 			{ level_name: '普通会员', description: '普通会员', level_id: 1 },
 			{ level_name: '黄金会员', description: '黄金会员', level_id: 2 },
 			{ level_name: '钻石会员', description: '钻石会员', level_id: 3 },
-		];
+		]
 
 		for (const membership of defaultMembership) {
 			const existingRole = await this.membershipLevelRepository.findOne({
 				where: { level_id: membership.level_id },
-			});
+			})
 
 			if (!existingRole) {
-				const newRole = this.membershipLevelRepository.create(membership);
-				await this.membershipLevelRepository.save(newRole);
+				const newRole = this.membershipLevelRepository.create(membership)
+				await this.membershipLevelRepository.save(newRole)
 			}
 		}
 	}
@@ -51,7 +51,7 @@ export class MembershipService implements OnModuleInit {
 	 * @returns
 	 */
 	public async findMembershipLevel(level_id: number): Promise<MembershipLevelEntity> {
-		return this.membershipLevelRepository.findOne({ where: { level_id } });
+		return this.membershipLevelRepository.findOne({ where: { level_id } })
 	}
 
 	/**
@@ -59,7 +59,7 @@ export class MembershipService implements OnModuleInit {
 	 * @returns
 	 */
 	async findAll(): Promise<MembershipLevelEntity[]> {
-		return await this.membershipLevelRepository.find();
+		return await this.membershipLevelRepository.find()
 	}
 
 	/**
@@ -68,6 +68,6 @@ export class MembershipService implements OnModuleInit {
 	 * @returns
 	 */
 	async create(membershipLevel: MembershipLevelEntity): Promise<MembershipLevelEntity> {
-		return await this.membershipLevelRepository.save(membershipLevel);
+		return await this.membershipLevelRepository.save(membershipLevel)
 	}
 }

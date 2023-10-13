@@ -6,9 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/ui/src/lib/text/text.tsx
  */
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@oin/utils';
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@oin/utils'
 
 const textsVariants = cva('flex items-center text-left leading-none', {
 	variants: {
@@ -30,13 +30,13 @@ const textsVariants = cva('flex items-center text-left leading-none', {
 		variant: 'default',
 		textColor: 'default',
 	},
-});
+})
 
 // extends VariantProps<typeof textsVariants>
 export interface TextProps
 	extends React.HTMLAttributes<HTMLDivElement>,
 		VariantProps<typeof textsVariants> {
-	asChild?: boolean;
+	asChild?: boolean
 }
 
 /**
@@ -44,9 +44,9 @@ export interface TextProps
  */
 export const Text = React.forwardRef<HTMLDivElement, TextProps>(
 	({ className, variant, textColor, asChild = false, ...props }, ref) => {
-		const Comp = 'span';
+		const Comp = 'span'
 		return (
 			<Comp className={cn(textsVariants({ variant, textColor, className }))} ref={ref} {...props} />
-		);
+		)
 	},
-);
+)

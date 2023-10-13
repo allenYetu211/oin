@@ -6,9 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/yoota/app/page.tsx
  */
-'use client';
+'use client'
 
-import { Button, Text, Card } from '@libs/ui';
+import { Button, Text, Card } from '@libs/ui'
 
 export default function Index() {
 	return (
@@ -16,12 +16,12 @@ export default function Index() {
 			<Card>
 				<Button
 					onClick={() => {
-						console.log('button');
+						console.log('button')
 					}}
 				>
 					<Text>Button</Text>
 				</Button>
 			</Card>
 		</>
-	);
+	)
 }

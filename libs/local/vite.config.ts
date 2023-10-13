@@ -1,9 +1,9 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
 
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import dts from 'vite-plugin-dts';
-import * as path from 'path';
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
+import dts from 'vite-plugin-dts'
+import * as path from 'path'
 
 export default defineConfig({
 	cacheDir: '../../node_modules/.vite/local',
@@ -40,4 +40,4 @@ export default defineConfig({
 			external: [],
 		},
 	},
-});
+})

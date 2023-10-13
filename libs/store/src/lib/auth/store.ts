@@ -6,22 +6,22 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/store/src/lib/auth/store.ts
  */
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-export type AuthTyps = { oin_token: string };
+export type AuthTyps = { oin_token: string }
 
 export interface AuthTypesConfigState {
-	'oin-token': string;
+	'oin-token': string
 }
 
-const excludeKeys: string[] = [''];
+const excludeKeys: string[] = ['']
 
 const initialLoginState = {
 	'oin-token': '',
-};
+}
 
-const store = () => ({ ...initialLoginState }) as AuthTypesConfigState;
+const store = () => ({ ...initialLoginState }) as AuthTypesConfigState
 
 export const useAuthStore = create<AuthTypesConfigState>()(
 	persist(store, {
@@ -29,4 +29,4 @@ export const useAuthStore = create<AuthTypesConfigState>()(
 		partialize: (state) =>
 			Object.fromEntries(Object.entries(state).filter(([key]) => !excludeKeys.includes(key))),
 	}),
-);
+)

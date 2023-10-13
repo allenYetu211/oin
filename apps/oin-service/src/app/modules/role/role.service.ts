@@ -10,10 +10,10 @@
 https://docs.nestjs.com/providers#services
 */
 
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserRoleEntity } from '@server/app/entitys/user-role.entity';
+import { Injectable, OnModuleInit } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UserRoleEntity } from '@server/app/entitys/user-role.entity'
 
 @Injectable()
 export class RoleService implements OnModuleInit {
@@ -23,7 +23,7 @@ export class RoleService implements OnModuleInit {
 	) {}
 
 	async onModuleInit() {
-		await this.createDefaultRoles();
+		await this.createDefaultRoles()
 	}
 
 	private async createDefaultRoles() {
@@ -31,16 +31,16 @@ export class RoleService implements OnModuleInit {
 			{ role_name: '普通用户', role_id: 1 },
 			{ role_name: '管理员', role_id: 2 },
 			{ role_name: '所有者', role_id: 3 },
-		];
+		]
 
 		for (const role of defaultRoles) {
 			const existingRole = await this.roleRepository.findOne({
 				where: { role_id: role.role_id },
-			});
+			})
 
 			if (!existingRole) {
-				const newRole = this.roleRepository.create(role);
-				await this.roleRepository.save(newRole);
+				const newRole = this.roleRepository.create(role)
+				await this.roleRepository.save(newRole)
 			}
 		}
 	}
@@ -49,6 +49,6 @@ export class RoleService implements OnModuleInit {
 	 * findone
 	 */
 	public async findOne(role_id: number) {
-		return this.roleRepository.findOne({ where: { role_id } });
+		return this.roleRepository.findOne({ where: { role_id } })
 	}
 }

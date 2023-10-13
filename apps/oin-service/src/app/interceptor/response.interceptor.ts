@@ -10,10 +10,10 @@
 https://docs.nestjs.com/interceptors#interceptors
 */
 
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
-import { ResponseSucceedDTO } from '@server/app/dto/common.dto';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
+import { Observable } from 'rxjs'
+import { tap, map } from 'rxjs/operators'
+import { ResponseSucceedDTO } from '@server/app/dto/common.dto'
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
@@ -23,10 +23,10 @@ export class ResponseInterceptor implements NestInterceptor {
 
 		return next.handle().pipe(
 			map((data) => {
-				const statusCode = context.switchToHttp().getResponse().statusCode;
-				const message = 'succeed';
-				return new ResponseSucceedDTO(statusCode, message, data);
+				const statusCode = context.switchToHttp().getResponse().statusCode
+				const message = 'succeed'
+				return new ResponseSucceedDTO(statusCode, message, data)
 			}),
-		);
+		)
 	}
 }

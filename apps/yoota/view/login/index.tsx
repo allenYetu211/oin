@@ -7,17 +7,17 @@
  * @FilePath: /oin/apps/yoota/view/login/index.tsx
  */
 
-'use client';
-import { z, ZodType } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, Text, Button } from '@libs/ui';
-import { Input } from '@nextui-org/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+'use client'
+import { z, ZodType } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Card, Text, Button } from '@libs/ui'
+import { Input } from '@nextui-org/react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 // import { request } from '@yoota/request';
-import { postAuthLogin } from '@yoota/request';
-import { useRequest, useUpdateEffect } from 'ahooks';
-import { FC } from 'react';
-import { setAuthOinState } from '@oin/store';
+import { postAuthLogin } from '@yoota/request'
+import { useRequest, useUpdateEffect } from 'ahooks'
+import { FC } from 'react'
+import { setAuthOinState } from '@oin/store'
 
 /**
  * ------------------------------------------------------------------------------------------
@@ -27,21 +27,21 @@ import { setAuthOinState } from '@oin/store';
 export const LoginView = () => {
 	const { data, error, runAsync, loading } = useRequest((submitdata) => postAuthLogin(submitdata), {
 		manual: true,
-	});
+	})
 
 	//  提交登录表单
 	const onFromSubmit = async (submitValue: IFormInput) => {
-		await runAsync(submitValue);
-	};
+		await runAsync(submitValue)
+	}
 
 	useUpdateEffect(() => {
-		console.log('useUpdateEffect data', data);
+		console.log('useUpdateEffect data', data)
 		if (201 === data?.statusCode) {
 			setAuthOinState({
 				'oin-token': data?.data.access_token,
-			});
+			})
 		}
-	}, [data]);
+	}, [data])
 
 	return (
 		<div className="w-[300px] absolute right-[10%] top-[50%] -translate-y-[50%]">
@@ -56,8 +56,8 @@ export const LoginView = () => {
 				<FromLogin onFromSubmit={onFromSubmit} loading={loading} />
 			</Card>
 		</div>
-	);
-};
+	)
+}
 
 /**
  * ------------------------------------------------------------------------------------------
@@ -66,27 +66,27 @@ export const LoginView = () => {
  */
 
 interface IFormInput {
-	username: string;
-	password: string;
+	username: string
+	password: string
 }
 
 const LoginSchema: ZodType<IFormInput> = z.object({
 	username: z.string().nonempty(),
 	password: z.string().nonempty(),
-});
+})
 
-type FormValues = 'username' | 'password';
+type FormValues = 'username' | 'password'
 
 const formScheme: {
-	[key in FormValues]: string;
+	[key in FormValues]: string
 } = {
 	username: 'informat2ion',
 	password: 'all2en@xxx.com',
-};
+}
 
 const FromLogin: FC<{
-	loading: boolean;
-	onFromSubmit: (data: IFormInput) => void;
+	loading: boolean
+	onFromSubmit: (data: IFormInput) => void
 }> = ({ onFromSubmit, loading }) => {
 	const {
 		handleSubmit,
@@ -98,11 +98,11 @@ const FromLogin: FC<{
 		defaultValues: formScheme,
 		// @ts-ignore
 		resolver: zodResolver(LoginSchema),
-	});
+	})
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		onFromSubmit(data);
-	};
+		onFromSubmit(data)
+	}
 
 	return (
 		<form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
@@ -134,5 +134,5 @@ const FromLogin: FC<{
 				Submit
 			</Button>
 		</form>
-	);
-};
+	)
+}

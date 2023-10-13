@@ -1,1 +1,1 @@
-export * from './lib/local';
+export * from './lib/local'

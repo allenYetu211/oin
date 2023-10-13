@@ -7,16 +7,16 @@
  * @FilePath: /oin/apps/oin-service/src/app/entitys/membership-level.entity.ts
  */
 // membership-level.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity('membership_levels')
 export class MembershipLevelEntity {
 	@PrimaryGeneratedColumn()
-	level_id: number; // 会员等级唯一标识符
+	level_id: number // 会员等级唯一标识符
 
 	@Column({ length: 50 })
-	level_name: string; // 会员等级名称
+	level_name: string // 会员等级名称
 
 	@Column({ length: 255 })
-	description: string; // 会员等级描述
+	description: string // 会员等级描述
 }

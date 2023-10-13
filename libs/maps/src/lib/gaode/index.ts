@@ -6,40 +6,40 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/maps/src/lib/gaode/index.ts
  */
-import AMapLoader from '@amap/amap-jsapi-loader';
+import AMapLoader from '@amap/amap-jsapi-loader'
 
 declare global {
 	interface Window {
-		_AMapSecurityConfig: any;
+		_AMapSecurityConfig: any
 	}
 }
 
 type WalkType = {
-	time: number;
-	timer: number;
-};
+	time: number
+	timer: number
+}
 
 window._AMapSecurityConfig = {
 	securityJsCode: '54ef9c2dbeb72147559c8a597c742e1a',
-};
+}
 
 const db = [
 	[116.368904, 39.913423],
 	[116.382122, 39.901176],
 	[116.387271, 39.912501],
 	[116.398258, 39.9046],
-];
+]
 export class AMap {
-	public M: any = null;
-	private AMap: any = null;
-	private _geolocationFunc: any;
-	private _currentLocaltion: number[] = [];
-	private _locationRecord: number[][] = [];
+	public M: any = null
+	private AMap: any = null
+	private _geolocationFunc: any
+	private _currentLocaltion: number[] = []
+	private _locationRecord: number[][] = []
 	// public locationRecord: number[][] = db;
-	private _pollIntervalId: NodeJS.Timer | undefined;
+	private _pollIntervalId: NodeJS.Timer | undefined
 
 	constructor(elemetn: HTMLElement) {
-		this.init(elemetn);
+		this.init(elemetn)
 	}
 
 	private async init(elemetn: HTMLElement) {
@@ -48,16 +48,16 @@ export class AMap {
 				key: '205ec95b5747c97d95c4aaeb56cbbfc0', // 申请好的Web端开发者Key，首次调用 load 时必填
 				version: '2.0', // 指定要加载的 JS API 的版本，缺省时默认为 1.4.15
 				plugins: [''], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-			});
-			this.M = await this._createMap(elemetn);
-			this._geolocation();
+			})
+			this.M = await this._createMap(elemetn)
+			this._geolocation()
 		} catch (e) {
-			console.log(e);
+			console.log(e)
 		}
 	}
 
 	public getMap() {
-		return this.M;
+		return this.M
 	}
 
 	/**
@@ -69,13 +69,13 @@ export class AMap {
 			`https://restapi.amap.com/v3/assistant/coordinate/convert?locations=${lnglat.join(
 				',',
 			)}&coordsys=gps&key=a6cc963caea1f74232a7ba20ecf7022a`,
-		);
+		)
 
 		if (response.ok) {
-			return response.json();
+			return response.json()
 		}
 
-		return Promise.reject('response error');
+		return Promise.reject('response error')
 	}
 
 	/**
@@ -86,9 +86,9 @@ export class AMap {
 	 * @returns
 	 */
 	public async setMapCenter(lnglat: number[]) {
-		const result = await this.localToMapLngLat(lnglat);
-		this.M.setCenter(result.locations);
-		this.M.setZoom(17);
+		const result = await this.localToMapLngLat(lnglat)
+		this.M.setCenter(result.locations)
+		this.M.setZoom(17)
 	}
 
 	private async _createMap(elemetn: HTMLElement) {
@@ -104,12 +104,12 @@ export class AMap {
 					// doubleClickZoom: false, // 地图是否可通过双击鼠标放大地图，默认为true
 					// zoomEnable: false, //地图是否可缩放，默认值为true
 					// rotateEnable: false, // 地图是否可旋转，3D视图默认为true，2D视图默认false
-				});
-				resolve(map);
+				})
+				resolve(map)
 			} catch (e) {
-				reject();
+				reject()
 			}
-		});
+		})
 	}
 
 	// private _citySearch() {
@@ -145,9 +145,9 @@ export class AMap {
 				noIpLocate: 0,
 				GeoLocationFirst: true, // 默认为false，设置为true的时候可以调整PC端为优先使用浏览器定位，失败后使用IP定位
 				zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
-			});
+			})
 
-			this.M.addControl(geolocation);
+			this.M.addControl(geolocation)
 
 			const func = (callback?: (result: any) => void) => {
 				geolocation.getCurrentPosition((status: any, result: any) => {
@@ -155,50 +155,50 @@ export class AMap {
 						/**
 						 * 在此回调函数当中需要拿到对应的坐标，然后添加到路径当中。
 						 */
-						callback && callback(result);
+						callback && callback(result)
 					} else {
-						onError(result);
+						onError(result)
 					}
-				});
-			};
+				})
+			}
 			/** 存储触控方法 */
-			this._geolocationFunc = func;
-			func();
+			this._geolocationFunc = func
+			func()
 
 			function onError(data: any) {
-				console.log(`定位失败: ${data.message}`);
+				console.log(`定位失败: ${data.message}`)
 			}
-		});
+		})
 	}
 
 	/**
 	 * 轮训触发，获取当前的定位信息
 	 */
 	private _pollWatchLocationPosition() {
-		this.M.setZoom(17);
+		this.M.setZoom(17)
 		this._pollIntervalId = setInterval(() => {
 			this._geolocationFunc &&
 				this._geolocationFunc((result: any) => {
 					/** 记录轨迹 */
-					const lnglat = [result.position.lng, result.position.lat];
-					this._currentLocaltion = lnglat;
-					this._drawWalkLine(lnglat);
-				});
-		}, 5000);
+					const lnglat = [result.position.lng, result.position.lat]
+					this._currentLocaltion = lnglat
+					this._drawWalkLine(lnglat)
+				})
+		}, 5000)
 	}
 
 	/**
 	 * 修改内容
 	 */
 	private _createDrawPolyline(line: number[][]) {
-		const g_lnglat = this._tGaodeLnglat(line);
+		const g_lnglat = this._tGaodeLnglat(line)
 		const polylines = new this.AMap.Polyline({
 			path: g_lnglat,
 			borderWeight: 2, // 线条宽度，默认为 1
 			strokeColor: 'red', // 线条颜色
 			lineJoin: 'round', // 折线拐点连接处样式
-		});
-		return polylines;
+		})
+		return polylines
 	}
 
 	/**
@@ -207,17 +207,17 @@ export class AMap {
 	private _drawWalkLine(lnglat: number[]) {
 		// 先删除已经绘制的线条， 在添加一条新的线条
 		if (this._locationRecord.length) {
-			this._locationRecord.push(lnglat);
+			this._locationRecord.push(lnglat)
 		} else {
-			this.M.remove(this._locationRecord);
-			this._locationRecord.unshift(lnglat);
+			this.M.remove(this._locationRecord)
+			this._locationRecord.unshift(lnglat)
 		}
 
-		this.M.setCenter(lnglat);
+		this.M.setCenter(lnglat)
 
-		const polyline = this._createDrawPolyline(this._locationRecord);
+		const polyline = this._createDrawPolyline(this._locationRecord)
 
-		this.M.add(polyline);
+		this.M.add(polyline)
 	}
 
 	/**
@@ -225,7 +225,7 @@ export class AMap {
 	 */
 	public startMoveRecord() {
 		// 开始监听定位
-		this._pollWatchLocationPosition();
+		this._pollWatchLocationPosition()
 		// 本地模拟测试
 		// this.TestRecording()
 	}
@@ -235,8 +235,8 @@ export class AMap {
 	 */
 	public endMoveRecord(walk: WalkType) {
 		if (this._pollIntervalId) {
-			clearInterval(this._pollIntervalId);
-			this._seveLocalWalkHistory(walk);
+			clearInterval(this._pollIntervalId)
+			this._seveLocalWalkHistory(walk)
 		}
 	}
 
@@ -244,17 +244,17 @@ export class AMap {
 	 * 历史线路查看
 	 */
 	public historyDrawMapLine(line: number[][]) {
-		const polyline = this._createDrawPolyline(line);
-		this.M.add(polyline);
-		this.M.setCenter(line[0]);
-		this.M.setFitView();
+		const polyline = this._createDrawPolyline(line)
+		this.M.add(polyline)
+		this.M.setCenter(line[0])
+		this.M.setFitView()
 	}
 
 	/**
 	 * 转换成高德坐标
 	 */
 	private _tGaodeLnglat(line: number[][]) {
-		return line.map((item) => new this.AMap.LngLat(item[0], item[1]));
+		return line.map((item) => new this.AMap.LngLat(item[0], item[1]))
 	}
 
 	/**
@@ -263,41 +263,41 @@ export class AMap {
 	public TestRecording() {
 		this._pollIntervalId = setInterval(() => {
 			// 截取 db 第一位，添加至 locationRecord
-			const firstLnglat = db.shift();
+			const firstLnglat = db.shift()
 			if (!firstLnglat) {
-				this._pollIntervalId && clearInterval(this._pollIntervalId);
-				return;
+				this._pollIntervalId && clearInterval(this._pollIntervalId)
+				return
 			}
-			this._drawWalkLine(firstLnglat as number[]);
-		}, 2000);
+			this._drawWalkLine(firstLnglat as number[])
+		}, 2000)
 	}
 
 	/**
 	 * 存储 localStorage
 	 */
 	private _seveLocalWalkHistory(walk: WalkType) {
-		const storeWalkHistory = this.getLocalWalkHistory();
-		let walkHistory = [];
+		const storeWalkHistory = this.getLocalWalkHistory()
+		let walkHistory = []
 		if (storeWalkHistory) {
 			if (Array.isArray(storeWalkHistory)) {
-				walkHistory = storeWalkHistory;
+				walkHistory = storeWalkHistory
 			} else {
-				walkHistory = [];
+				walkHistory = []
 			}
 		}
 		walkHistory.push({
 			...walk,
 			walkRecord: this._locationRecord,
-		});
-		localStorage.setItem('walkHistory', JSON.stringify(walkHistory));
-		this._locationRecord = [];
+		})
+		localStorage.setItem('walkHistory', JSON.stringify(walkHistory))
+		this._locationRecord = []
 	}
 
 	/**
 	 * 获取本地 localwalkhistory
 	 */
 	public getLocalWalkHistory() {
-		const walkHistory = localStorage.getItem('walkHistory');
-		return JSON.parse(walkHistory || '[]');
+		const walkHistory = localStorage.getItem('walkHistory')
+		return JSON.parse(walkHistory || '[]')
 	}
 }

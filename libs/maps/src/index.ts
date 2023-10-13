@@ -1,1 +1,1 @@
-export * from './lib/gaode';
+export * from './lib/gaode'

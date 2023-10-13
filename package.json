@@ -8,7 +8,8 @@
 		"web": "nx run oin-web:serve",
 		"web:build": "pnpm  nx run oin-web:build",
 		"yoota": "pnpm   nx run yoota:serve",
-		"ys": "pnpm  nx run-many --target=serve --projects=oin-service,yoota "
+		"ys": "pnpm  nx run-many --target=serve --projects=oin-service,yoota ",
+		"format": "pnpx prettier --write ."
 	},
 	"private": true,
 	"devDependencies": {

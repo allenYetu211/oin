@@ -10,9 +10,9 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { MembershipService } from './membership.service';
-import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity';
+import { Body, Controller, Get, Post } from '@nestjs/common'
+import { MembershipService } from './membership.service'
+import { MembershipLevelEntity } from '@server/app/entitys/membership-level.entity'
 
 @Controller('membership')
 export class MembershipController {
@@ -20,7 +20,7 @@ export class MembershipController {
 
 	@Get()
 	findAll(): Promise<MembershipLevelEntity[]> {
-		return this.membershipService.findAll();
+		return this.membershipService.findAll()
 	}
 
 	/**
@@ -28,6 +28,6 @@ export class MembershipController {
 	 */
 	@Post()
 	create(@Body() membershipLevel: MembershipLevelEntity): Promise<MembershipLevelEntity> {
-		return this.membershipService.create(membershipLevel);
+		return this.membershipService.create(membershipLevel)
 	}
 }

@@ -8,10 +8,10 @@
  */
 // src/auth/jwt.strategy.ts
 
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, ExtractJwt } from 'passport-jwt';
-import { AuthService } from './auth.service';
+import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
+import { Strategy, ExtractJwt } from 'passport-jwt'
+import { AuthService } from './auth.service'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,15 +20,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
 			secretOrKey: process.env.SERVICE_SECRET_KEY || 'secret_key',
-		});
+		})
 	}
 
 	async validate(payload: any) {
 		/** 通过 jwt 解析的 user_id 查询相关的用户信息 */
-		const user = await this.authService.validateUserById(payload.sub);
+		const user = await this.authService.validateUserById(payload.sub)
 		if (!user) {
-			throw new UnauthorizedException();
+			throw new UnauthorizedException()
 		}
-		return user;
+		return user
 	}
 }

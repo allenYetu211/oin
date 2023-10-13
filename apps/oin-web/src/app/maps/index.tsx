@@ -7,10 +7,10 @@
  * @FilePath: /oin/apps/oin-web/src/app/maps/index.tsx
  */
 /* eslint-disable-next-line */
-import { AMap } from '@oin/maps';
-import { Key, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { AMap } from '@oin/maps'
+import { Key, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 // import { convertToTimeFormat } from '@oin/utils';
-import * as dayjs from 'dayjs';
+import * as dayjs from 'dayjs'
 
 import {
 	Modal,
@@ -22,89 +22,89 @@ import {
 	useDisclosure,
 	Listbox,
 	ListboxItem,
-} from '@nextui-org/react';
+} from '@nextui-org/react'
 
 // import { ObtainLocal } from '@oin/local';
 // import useFetch from 'use-http';
 
 const convertToTimeFormat = (number: number) => {
 	if (typeof number !== 'number' || number < 0) {
-		return '无效输入';
+		return '无效输入'
 	}
 
-	const minutes = Math.floor(number / 60);
-	const seconds = number % 60;
+	const minutes = Math.floor(number / 60)
+	const seconds = number % 60
 
-	const formattedMinutes = String(minutes).padStart(2, '0');
-	const formattedSeconds = String(seconds).padStart(2, '0');
+	const formattedMinutes = String(minutes).padStart(2, '0')
+	const formattedSeconds = String(seconds).padStart(2, '0')
 
-	return `${formattedMinutes}:${formattedSeconds}`;
-};
+	return `${formattedMinutes}:${formattedSeconds}`
+}
 
 export interface MapsProps {}
 
-type WalkHistoryProps = { time: number; timer: number; walkRecord: number[][] };
+type WalkHistoryProps = { time: number; timer: number; walkRecord: number[][] }
 
 export function MapsComp(props: MapsProps) {
-	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-	const [modalPlacement, setModalPlacement] = useState('auto');
+	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+	const [modalPlacement, setModalPlacement] = useState('auto')
 
-	const [isRecording, setRecording] = useState<boolean>(false);
-	const [recordTimer, setRecordTimer] = useState<number>(0);
-	const [walkHistory, setWalkHistory] = useState<WalkHistoryProps[]>([]);
-	const currentIntervalId = useRef<NodeJS.Timer>();
-	const map = useRef<AMap | undefined>();
-	const mapEL = useRef<any>();
+	const [isRecording, setRecording] = useState<boolean>(false)
+	const [recordTimer, setRecordTimer] = useState<number>(0)
+	const [walkHistory, setWalkHistory] = useState<WalkHistoryProps[]>([])
+	const currentIntervalId = useRef<NodeJS.Timer>()
+	const map = useRef<AMap | undefined>()
+	const mapEL = useRef<any>()
 
 	useEffect(() => {
-		map.current = new AMap(mapEL.current);
-	}, []);
+		map.current = new AMap(mapEL.current)
+	}, [])
 
 	const timer = useMemo(() => {
-		return convertToTimeFormat(recordTimer);
-	}, [recordTimer]);
+		return convertToTimeFormat(recordTimer)
+	}, [recordTimer])
 
 	const currentRecodingState = () => {
 		if (!isRecording) {
-			map.current!.startMoveRecord();
-			setRecording(true);
+			map.current!.startMoveRecord()
+			setRecording(true)
 			currentIntervalId.current = setInterval(() => {
-				setRecordTimer((prevState) => prevState + 1);
-			}, 1000);
+				setRecordTimer((prevState) => prevState + 1)
+			}, 1000)
 		} else {
-			stopRecording();
+			stopRecording()
 		}
-	};
+	}
 
 	const stopRecording = () => {
 		if (!currentIntervalId.current) {
-			return;
+			return
 		}
 
 		map.current!.endMoveRecord({
 			time: new Date().getTime(),
 			timer: recordTimer,
-		});
-		setRecording(false);
-		setRecordTimer(0);
-		currentIntervalId.current && clearInterval(currentIntervalId.current);
-		currentIntervalId.current = undefined;
-	};
+		})
+		setRecording(false)
+		setRecordTimer(0)
+		currentIntervalId.current && clearInterval(currentIntervalId.current)
+		currentIntervalId.current = undefined
+	}
 
 	const onLocalHistoryOpen = () => {
-		const wh = map.current!.getLocalWalkHistory();
+		const wh = map.current!.getLocalWalkHistory()
 
-		setWalkHistory(wh);
-		onOpen();
-	};
+		setWalkHistory(wh)
+		onOpen()
+	}
 
 	const onHistoryDrawMapLine = (key: Key) => {
-		const { walkRecord } = walkHistory[key as number];
-		onClose();
-		console.log('currentIntervalId.current', currentIntervalId.current);
-		stopRecording();
-		map.current!.historyDrawMapLine(walkRecord);
-	};
+		const { walkRecord } = walkHistory[key as number]
+		onClose()
+		console.log('currentIntervalId.current', currentIntervalId.current)
+		stopRecording()
+		map.current!.historyDrawMapLine(walkRecord)
+	}
 
 	return (
 		<>
@@ -155,5 +155,5 @@ export function MapsComp(props: MapsProps) {
 				</Modal>
 			</div>
 		</>
-	);
+	)
 }

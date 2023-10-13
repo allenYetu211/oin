@@ -6,18 +6,18 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/main.tsx
  */
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import './styles.css';
-import App from './app/app';
+import { StrictMode } from 'react'
+import * as ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import './styles.css'
+import App from './app/app'
 
-import { NextUIProvider } from '@nextui-org/react';
+import { NextUIProvider } from '@nextui-org/react'
 // import VConsole from 'vconsole';
 
 // new VConsole();
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 	<StrictMode>
 		<NextUIProvider>
@@ -26,4 +26,4 @@ root.render(
 			</BrowserRouter>
 		</NextUIProvider>
 	</StrictMode>,
-);
+)

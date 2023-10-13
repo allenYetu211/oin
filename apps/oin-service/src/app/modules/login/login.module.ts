@@ -7,11 +7,11 @@
  * @FilePath: /oin/apps/oin-service/src/app/modules/login/login.module.ts
  */
 
-import { Module } from '@nestjs/common';
-import { AuthModule } from '@server/app/modules/auth/auth.module';
+import { Module } from '@nestjs/common'
+import { AuthModule } from '@server/app/modules/auth/auth.module'
 
-import { LoginController } from './login.controller';
-import { LoginService } from './login.service';
+import { LoginController } from './login.controller'
+import { LoginService } from './login.service'
 
 @Module({
 	imports: [AuthModule],

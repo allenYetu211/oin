@@ -6,13 +6,13 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/yoota/app/(login)/layout.tsx
  */
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	title: 'Oin Login',
 	description: '',
-};
+}
 
 export default function Layout({ children }: any) {
-	return <div className="h-screen w-screen overflow-auto">{children}</div>;
+	return <div className="h-screen w-screen overflow-auto">{children}</div>
 }

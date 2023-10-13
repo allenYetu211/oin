@@ -8,29 +8,29 @@
  */
 // global-exception.filter.ts
 
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { ResponseErrorDTO } from '@server/app/dto/common.dto';
-import { logger } from '@server/app/common/utils/logger';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common'
+import { Request, Response } from 'express'
+import { ResponseErrorDTO } from '@server/app/dto/common.dto'
+import { logger } from '@server/app/common/utils/logger'
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
 	catch(exception: any, host: ArgumentsHost) {
-		const ctx = host.switchToHttp();
-		const response = ctx.getResponse<Response>();
-		const request = ctx.getRequest<Request>();
+		const ctx = host.switchToHttp()
+		const response = ctx.getResponse<Response>()
+		const request = ctx.getRequest<Request>()
 
-		let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-		let message = 'Server Interior Error';
+		let statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+		let message = 'Server Interior Error'
 
 		if (exception instanceof HttpException) {
-			statusCode = exception.getStatus();
-			message = exception.message;
+			statusCode = exception.getStatus()
+			message = exception.message
 		}
 
-		logger.error(`${statusCode} : ${message}`);
-		const errorResponse = new ResponseErrorDTO(statusCode, message);
+		logger.error(`${statusCode} : ${message}`)
+		const errorResponse = new ResponseErrorDTO(statusCode, message)
 
-		response.status(statusCode).json(errorResponse);
+		response.status(statusCode).json(errorResponse)
 	}
 }

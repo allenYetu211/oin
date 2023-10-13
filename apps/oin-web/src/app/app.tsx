@@ -6,16 +6,16 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-web/src/app/app.tsx
  */
-import { MapsComp } from './maps';
+import { MapsComp } from './maps'
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom'
 
 export function App() {
 	return (
 		<div className="mb-20">
 			<MapsComp />
 		</div>
-	);
+	)
 }
 
-export default App;
+export default App

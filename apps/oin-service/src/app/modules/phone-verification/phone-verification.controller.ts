@@ -10,8 +10,8 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PhoneVerificationService } from './phone-verification.service';
+import { Body, Controller, Get, Post } from '@nestjs/common'
+import { PhoneVerificationService } from './phone-verification.service'
 
 @Controller('verification')
 export class PhoneVerificationController {
@@ -23,6 +23,6 @@ export class PhoneVerificationController {
 	 */
 	@Post('/phone')
 	public async obtainPhoneVerificationCode(@Body() { phone }: { phone: string }) {
-		return this.phoneVerificationService.generateAndSaveVerificationCode(phone);
+		return this.phoneVerificationService.generateAndSaveVerificationCode(phone)
 	}
 }

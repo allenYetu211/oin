@@ -6,9 +6,9 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/libs/ui/src/lib/form/form.tsx
  */
-'use client';
+'use client'
 
-import { useForm, SubmitHandler, UseFormRegister, FieldValues } from 'react-hook-form';
+import { useForm, SubmitHandler, UseFormRegister, FieldValues } from 'react-hook-form'
 
 enum GenderEnum {
 	female = 'female',
@@ -17,23 +17,23 @@ enum GenderEnum {
 }
 
 interface IFormInput {
-	firstName: String;
-	gender: GenderEnum;
+	firstName: String
+	gender: GenderEnum
 }
 
 type FormProps<T extends FieldValues> = {
-	children: ({ register }: { register: UseFormRegister<T> }) => JSX.Element;
-	onHandleSubmit: (data: T) => void;
-};
+	children: ({ register }: { register: UseFormRegister<T> }) => JSX.Element
+	onHandleSubmit: (data: T) => void
+}
 
 export const Form = <T extends FieldValues>({ children, onHandleSubmit }: FormProps<T>) => {
-	const { register, handleSubmit } = useForm<T>();
-	const onSubmit: SubmitHandler<T> = onHandleSubmit;
+	const { register, handleSubmit } = useForm<T>()
+	const onSubmit: SubmitHandler<T> = onHandleSubmit
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			{children({ register })}
 			<button type="submit">Submit</button>
 		</form>
-	);
-};
+	)
+}

@@ -8,19 +8,19 @@
  */
 // phone-verification.entity.ts
 
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity()
 export class PhoneVerificationEntity {
 	@PrimaryGeneratedColumn()
-	id: number;
+	id: number
 
 	@Column()
-	phone: string;
+	phone: string
 
 	@Column()
-	code: string;
+	code: string
 
 	@Column({ type: 'timestamp' })
-	expiresAt: Date;
+	expiresAt: Date
 }

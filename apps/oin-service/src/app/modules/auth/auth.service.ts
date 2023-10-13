@@ -8,12 +8,12 @@
  */
 // src/auth/auth.service.ts
 
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UserEntity } from '@server/app/entitys/user.entity';
-import { UserService } from '@server/app/modules/user/user.service';
-import { isEmail } from 'class-validator';
-import { isChinesePhoneNumber } from '@oin/utils';
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { UserEntity } from '@server/app/entitys/user.entity'
+import { UserService } from '@server/app/modules/user/user.service'
+import { isEmail } from 'class-validator'
+import { isChinesePhoneNumber } from '@oin/utils'
 
 @Injectable()
 export class AuthService {
@@ -28,28 +28,28 @@ export class AuthService {
 		/**
 		 * 1. 走守卫进行校验获取用户身份。
 		 */
-		let type: 'username' | 'email' | 'phone' = 'username';
+		let type: 'username' | 'email' | 'phone' = 'username'
 		if (isEmail(username)) {
-			type = 'email';
+			type = 'email'
 		} else if (isChinesePhoneNumber(username)) {
-			type = 'phone';
+			type = 'phone'
 		}
-		return await this.multipleLogin(username, password, type);
+		return await this.multipleLogin(username, password, type)
 	}
 
 	async validateUserById(user_id: string): Promise<UserEntity | null> {
-		return await this.userService.findOne({ user_id });
+		return await this.userService.findOne({ user_id })
 	}
 
 	async login(user: UserEntity): Promise<{ access_token: string }> {
 		const u = await this.userService.findOne({
 			username: user.username,
 			password: user.password,
-		});
-		const payload = { sub: u.user_id };
+		})
+		const payload = { sub: u.user_id }
 		return {
 			access_token: this.jwtService.sign(payload),
-		};
+		}
 	}
 
 	/**
@@ -63,16 +63,16 @@ export class AuthService {
 		return await this.userService.findOne({
 			[type]: account,
 			password: password,
-		});
+		})
 	}
 
 	/**
 	 * 创建 token
 	 */
 	async generateToken(user: UserEntity): Promise<{ access_token: string }> {
-		const payload = { sub: user.user_id };
+		const payload = { sub: user.user_id }
 		return {
 			access_token: this.jwtService.sign(payload),
-		};
+		}
 	}
 }
