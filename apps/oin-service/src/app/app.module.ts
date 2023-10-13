@@ -35,13 +35,12 @@ import { ResponseInterceptor } from '@server/app/interceptor/response.intercepto
 
 import { ScheduleModule } from '@nestjs/schedule';
 
-
 import dotenv from 'dotenv';
 dotenv.config();
 
 @Module({
   imports: [
-        PhoneVerificationModule,
+    PhoneVerificationModule,
     PhoneVerificationModule,
     LoginModule,
     AuthModule,

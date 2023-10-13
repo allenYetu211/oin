@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-13 11:42:26
- * @LastEditTime: 2023-10-12 18:46:26
+ * @LastEditTime: 2023-10-13 17:15:20
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/login/login.controller.ts
  */
@@ -10,12 +10,11 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from '@server/app/guard/local-auth.guard';
 import { AuthService } from '@server/app/modules/auth/auth.service';
 import { UserEntity } from '@server/app/entitys/user.entity';
-import { isEmail, isPhoneNumber } from 'class-validator';
-import {isChinesePhoneNumber} from  '@oin/utils'
+import { logger } from '@server/app/common/utils/logger';
 
 @Controller('auth')
 export class LoginController {
@@ -24,11 +23,11 @@ export class LoginController {
   /**
    *  账号密码登录
    */
-  // @UseGuards(LocalAuthGuard)
-  // @Post('login')
-  // async login(@Body() user: UserEntity): Promise<{ access_token: string }> {
-  //   return await this.authService.login(user);
-  // }
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Body() user: UserEntity): Promise<{ access_token: string }> {
+    return await this.authService.login(user);
+  }
 
   /**
    * 多重登录
@@ -37,17 +36,10 @@ export class LoginController {
   @UseGuards(LocalAuthGuard)
   @Post('multiple_login')
   async multipleLogin(
-    @Body() multiples: { multiple: string; password: string }
+    // 使用 守卫，需要传入 body 需要时 username ，以及 password 。 todo 更改方法在确认。
+    @Req() req,
   ) {
-    const { multiple, password } = multiples;
-    // 判断 multiple类型，选择不同的登录方式
-    let type: 'username' | 'email' | 'phone' = 'username';
-    if (isEmail(multiple)) {
-      type = 'email'
-    } else if (isChinesePhoneNumber(multiple)) {
-      type = 'phone'
-    }
-
-    return await this.authService.multipleLogin(multiple, password, type);
+    logger.info(`用户登录： ${JSON.stringify(req.user)}`)
+    return this.authService.generateToken(req.user)
   }
 }

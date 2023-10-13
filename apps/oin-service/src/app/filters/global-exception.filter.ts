@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-14 10:18:58
- * @LastEditTime: 2023-09-14 16:59:33
+ * @LastEditTime: 2023-10-13 16:33:30
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/filters/global-exception.filter.ts
  */
@@ -17,6 +17,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ResponseErrorDTO } from '@server/app/dto/common.dto';
+import { logger } from '@server/app/common/utils/logger';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -33,6 +34,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message = exception.message;
     }
 
+    logger.error(`${statusCode} : ${message}`)
     const errorResponse = new ResponseErrorDTO(statusCode, message);
 
     response.status(statusCode).json(errorResponse);
