@@ -8,9 +8,9 @@ import { RoleService } from './role.service';
 import { UserRoleEntity } from '@server/app/entitys/user-role.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRoleEntity])],
-  controllers: [],
-  providers: [RoleService],
-  exports: [RoleService],
+	imports: [TypeOrmModule.forFeature([UserRoleEntity])],
+	controllers: [],
+	providers: [RoleService],
+	exports: [RoleService],
 })
 export class RoleModule {}

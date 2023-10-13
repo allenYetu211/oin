@@ -14,16 +14,11 @@ import { forwardRef } from 'react';
 import { cn } from '@oin/utils';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, color = 'primary', ...props }, ref) => {
-    return (
-      <NextButton
-        color={color}
-        className={cn('rounded-lg', className)}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
+	({ className, color = 'primary', ...props }, ref) => {
+		return (
+			<NextButton color={color} className={cn('rounded-lg', className)} ref={ref} {...props} />
+		);
+	},
 );
 
 export { Button, ButtonProps };

@@ -9,10 +9,10 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Oin Login',
-  description: '',
+	title: 'Oin Login',
+	description: '',
 };
 
 export default function Layout({ children }: any) {
-  return <div className="h-screen w-screen overflow-auto">{children}</div>;
+	return <div className="h-screen w-screen overflow-auto">{children}</div>;
 }

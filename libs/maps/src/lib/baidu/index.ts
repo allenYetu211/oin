@@ -1,3 +1,1 @@
-class BMap {
-
-}
+class BMap {}

@@ -1,29 +1,26 @@
 {
-  "name": "request",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/request/src",
-  "projectType": "library",
-  "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/request",
-        "main": "libs/request/src/index.ts",
-        "tsConfig": "libs/request/tsconfig.lib.json",
-        "assets": ["libs/request/*.md"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/request/**/*.ts",
-          "libs/request/package.json"
-        ]
-      }
-    }
-  },
-  "tags": []
+	"name": "request",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/request/src",
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/request",
+				"main": "libs/request/src/index.ts",
+				"tsConfig": "libs/request/tsconfig.lib.json",
+				"assets": ["libs/request/*.md"]
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/request/**/*.ts", "libs/request/package.json"]
+			}
+		}
+	},
+	"tags": []
 }

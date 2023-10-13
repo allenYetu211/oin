@@ -15,11 +15,11 @@ import { UserRoleEntity } from './user-role.entity';
 import { PhoneVerificationEntity } from './phone-verification.entity';
 
 export const entitys = [
-  UserEntity,
-  MembershipLevelEntity,
-  SocialMediaIntegrationEntity,
-  UserLogsEntity,
-  UserPermissionsEntity,
-  UserRoleEntity,
-  PhoneVerificationEntity
+	UserEntity,
+	MembershipLevelEntity,
+	SocialMediaIntegrationEntity,
+	UserLogsEntity,
+	UserPermissionsEntity,
+	UserRoleEntity,
+	PhoneVerificationEntity,
 ];

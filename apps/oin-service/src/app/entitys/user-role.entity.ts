@@ -6,19 +6,13 @@
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/entitys/user-role.entity.ts
  */
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity('user_role')
 export class UserRoleEntity {
-  @PrimaryGeneratedColumn()
-  role_id: number;
+	@PrimaryGeneratedColumn()
+	role_id: number;
 
-  @Column({ length: 50 })
-  role_name: string;
+	@Column({ length: 50 })
+	role_name: string;
 }

@@ -10,28 +10,23 @@
 https://docs.nestjs.com/interceptors#interceptors
 */
 
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { ResponseSucceedDTO } from '@server/app/dto/common.dto';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    // console.log('ResponseInterceptor Before...', context);
-    // return next.handle().pipe(tap(() => console.log(`After...`)));
+	intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+		// console.log('ResponseInterceptor Before...', context);
+		// return next.handle().pipe(tap(() => console.log(`After...`)));
 
-    return next.handle().pipe(
-      map((data) => {
-        const statusCode = context.switchToHttp().getResponse().statusCode;
-        const message = 'succeed';
-        return new ResponseSucceedDTO(statusCode, message, data);
-      })
-    );
-  }
+		return next.handle().pipe(
+			map((data) => {
+				const statusCode = context.switchToHttp().getResponse().statusCode;
+				const message = 'succeed';
+				return new ResponseSucceedDTO(statusCode, message, data);
+			}),
+		);
+	}
 }

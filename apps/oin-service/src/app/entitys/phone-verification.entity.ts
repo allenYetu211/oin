@@ -12,15 +12,15 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class PhoneVerificationEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @Column()
-  phone: string;
+	@Column()
+	phone: string;
 
-  @Column()
-  code: string;
+	@Column()
+	code: string;
 
-  @Column({ type: 'timestamp' })
-  expiresAt: Date;
+	@Column({ type: 'timestamp' })
+	expiresAt: Date;
 }

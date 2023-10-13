@@ -17,61 +17,57 @@ import { MembershipLevelEntity } from '@server/app/entitys/membership-level.enti
 
 @Injectable()
 export class MembershipService implements OnModuleInit {
-  constructor(
-    @InjectRepository(MembershipLevelEntity)
-    private readonly membershipLevelRepository: Repository<MembershipLevelEntity>
-  ) {}
+	constructor(
+		@InjectRepository(MembershipLevelEntity)
+		private readonly membershipLevelRepository: Repository<MembershipLevelEntity>,
+	) {}
 
-  async onModuleInit() {
-    await this.createDefaultMembershipLevel();
-  }
+	async onModuleInit() {
+		await this.createDefaultMembershipLevel();
+	}
 
-  private async createDefaultMembershipLevel() {
-    const defaultMembership = [
-      { level_name: '普通会员', description: '普通会员', level_id: 1 },
-      { level_name: '黄金会员', description: '黄金会员', level_id: 2 },
-      { level_name: '钻石会员', description: '钻石会员', level_id: 3 },
-    ];
+	private async createDefaultMembershipLevel() {
+		const defaultMembership = [
+			{ level_name: '普通会员', description: '普通会员', level_id: 1 },
+			{ level_name: '黄金会员', description: '黄金会员', level_id: 2 },
+			{ level_name: '钻石会员', description: '钻石会员', level_id: 3 },
+		];
 
-    for (const membership of defaultMembership) {
-      const existingRole = await this.membershipLevelRepository.findOne({
-        where: { level_id: membership.level_id },
-      });
+		for (const membership of defaultMembership) {
+			const existingRole = await this.membershipLevelRepository.findOne({
+				where: { level_id: membership.level_id },
+			});
 
-      if (!existingRole) {
-        const newRole = this.membershipLevelRepository.create(membership);
-        await this.membershipLevelRepository.save(newRole);
-      }
-    }
-  }
+			if (!existingRole) {
+				const newRole = this.membershipLevelRepository.create(membership);
+				await this.membershipLevelRepository.save(newRole);
+			}
+		}
+	}
 
-  /**
-   * 查找会员等级
-   * @param option
-   * @returns
-   */
-  public async findMembershipLevel(
-    level_id: number
-  ): Promise<MembershipLevelEntity> {
-    return this.membershipLevelRepository.findOne({ where: { level_id } });
-  }
+	/**
+	 * 查找会员等级
+	 * @param option
+	 * @returns
+	 */
+	public async findMembershipLevel(level_id: number): Promise<MembershipLevelEntity> {
+		return this.membershipLevelRepository.findOne({ where: { level_id } });
+	}
 
-  /**
-   * 查找所有等级
-   * @returns
-   */
-  async findAll(): Promise<MembershipLevelEntity[]> {
-    return await this.membershipLevelRepository.find();
-  }
+	/**
+	 * 查找所有等级
+	 * @returns
+	 */
+	async findAll(): Promise<MembershipLevelEntity[]> {
+		return await this.membershipLevelRepository.find();
+	}
 
-  /**
-   * 创建新的等级
-   * @param membershipLevel
-   * @returns
-   */
-  async create(
-    membershipLevel: MembershipLevelEntity
-  ): Promise<MembershipLevelEntity> {
-    return await this.membershipLevelRepository.save(membershipLevel);
-  }
+	/**
+	 * 创建新的等级
+	 * @param membershipLevel
+	 * @returns
+	 */
+	async create(membershipLevel: MembershipLevelEntity): Promise<MembershipLevelEntity> {
+		return await this.membershipLevelRepository.save(membershipLevel);
+	}
 }

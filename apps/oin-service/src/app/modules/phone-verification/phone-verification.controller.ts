@@ -15,16 +15,14 @@ import { PhoneVerificationService } from './phone-verification.service';
 
 @Controller('verification')
 export class PhoneVerificationController {
-  constructor(
-    private readonly phoneVerificationService: PhoneVerificationService
-  ) {}
+	constructor(private readonly phoneVerificationService: PhoneVerificationService) {}
 
-  /**
-   * 获取手机验证码。
-   * todo：增加图片验证创建生成
-   */
-  @Post('/phone')
-  public async obtainPhoneVerificationCode(@Body() {phone}: { phone: string }) {
-    return this.phoneVerificationService.generateAndSaveVerificationCode(phone);
-  }
+	/**
+	 * 获取手机验证码。
+	 * todo：增加图片验证创建生成
+	 */
+	@Post('/phone')
+	public async obtainPhoneVerificationCode(@Body() { phone }: { phone: string }) {
+		return this.phoneVerificationService.generateAndSaveVerificationCode(phone);
+	}
 }

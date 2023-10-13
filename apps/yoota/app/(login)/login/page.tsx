@@ -9,5 +9,5 @@
 import { LoginView } from '@yoota/view/login';
 
 export default function Login() {
-  return <LoginView />;
+	return <LoginView />;
 }

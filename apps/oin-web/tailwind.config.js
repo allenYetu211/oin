@@ -14,20 +14,14 @@ console.log('__dirname', __dirname);
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    join(
-      __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
-    ),
-    join(
-      __dirname,
-      '../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
-    ),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
-  theme: {
-    extend: {},
-  },
-  darkMode: 'class',
-  plugins: [nextui()],
+	content: [
+		join(__dirname, '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'),
+		join(__dirname, '../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'),
+		...createGlobPatternsForDependencies(__dirname),
+	],
+	theme: {
+		extend: {},
+	},
+	darkMode: 'class',
+	plugins: [nextui()],
 };

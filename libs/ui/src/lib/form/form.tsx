@@ -8,40 +8,32 @@
  */
 'use client';
 
-import {
-  useForm,
-  SubmitHandler,
-  UseFormRegister,
-  FieldValues,
-} from 'react-hook-form';
+import { useForm, SubmitHandler, UseFormRegister, FieldValues } from 'react-hook-form';
 
 enum GenderEnum {
-  female = 'female',
-  male = 'male',
-  other = 'other',
+	female = 'female',
+	male = 'male',
+	other = 'other',
 }
 
 interface IFormInput {
-  firstName: String;
-  gender: GenderEnum;
+	firstName: String;
+	gender: GenderEnum;
 }
 
 type FormProps<T extends FieldValues> = {
-  children: ({ register }: { register: UseFormRegister<T> }) => JSX.Element;
-  onHandleSubmit: (data: T) => void;
+	children: ({ register }: { register: UseFormRegister<T> }) => JSX.Element;
+	onHandleSubmit: (data: T) => void;
 };
 
-export const Form = <T extends FieldValues>({
-  children,
-  onHandleSubmit,
-}: FormProps<T>) => {
-  const { register, handleSubmit } = useForm<T>();
-  const onSubmit: SubmitHandler<T> = onHandleSubmit;
+export const Form = <T extends FieldValues>({ children, onHandleSubmit }: FormProps<T>) => {
+	const { register, handleSubmit } = useForm<T>();
+	const onSubmit: SubmitHandler<T> = onHandleSubmit;
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {children({ register })}
-      <button type="submit">Submit</button>
-    </form>
-  );
+	return (
+		<form onSubmit={handleSubmit(onSubmit)}>
+			{children({ register })}
+			<button type="submit">Submit</button>
+		</form>
+	);
 };

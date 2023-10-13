@@ -17,38 +17,38 @@ import { UserRoleEntity } from '@server/app/entitys/user-role.entity';
 
 @Injectable()
 export class RoleService implements OnModuleInit {
-  constructor(
-    @InjectRepository(UserRoleEntity)
-    private readonly roleRepository: Repository<UserRoleEntity>
-  ) {}
+	constructor(
+		@InjectRepository(UserRoleEntity)
+		private readonly roleRepository: Repository<UserRoleEntity>,
+	) {}
 
-  async onModuleInit() {
-    await this.createDefaultRoles();
-  }
+	async onModuleInit() {
+		await this.createDefaultRoles();
+	}
 
-  private async createDefaultRoles() {
-    const defaultRoles = [
-      { role_name: '普通用户', role_id: 1 },
-      { role_name: '管理员', role_id: 2 },
-      { role_name: '所有者', role_id: 3 },
-    ];
+	private async createDefaultRoles() {
+		const defaultRoles = [
+			{ role_name: '普通用户', role_id: 1 },
+			{ role_name: '管理员', role_id: 2 },
+			{ role_name: '所有者', role_id: 3 },
+		];
 
-    for (const role of defaultRoles) {
-      const existingRole = await this.roleRepository.findOne({
-        where: { role_id: role.role_id },
-      });
+		for (const role of defaultRoles) {
+			const existingRole = await this.roleRepository.findOne({
+				where: { role_id: role.role_id },
+			});
 
-      if (!existingRole) {
-        const newRole = this.roleRepository.create(role);
-        await this.roleRepository.save(newRole);
-      }
-    }
-  }
+			if (!existingRole) {
+				const newRole = this.roleRepository.create(role);
+				await this.roleRepository.save(newRole);
+			}
+		}
+	}
 
-  /**
-   * findone
-   */
-  public async findOne(role_id: number) {
-    return this.roleRepository.findOne({ where: { role_id } });
-  }
+	/**
+	 * findone
+	 */
+	public async findOne(role_id: number) {
+		return this.roleRepository.findOne({ where: { role_id } });
+	}
 }

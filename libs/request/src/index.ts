@@ -1,3 +1,3 @@
 // export * from './lib/request';
 
-export * from './lib/http'
+export * from './lib/http';

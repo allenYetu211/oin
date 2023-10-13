@@ -17,9 +17,9 @@ https://docs.nestjs.com/modules
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MembershipLevelEntity])],
-  controllers: [MembershipController],
-  providers: [MembershipService],
-  exports: [MembershipService],
+	imports: [TypeOrmModule.forFeature([MembershipLevelEntity])],
+	controllers: [MembershipController],
+	providers: [MembershipService],
+	exports: [MembershipService],
 })
 export class MembershipModule {}

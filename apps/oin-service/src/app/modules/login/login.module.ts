@@ -14,8 +14,8 @@ import { LoginController } from './login.controller';
 import { LoginService } from './login.service';
 
 @Module({
-  imports: [AuthModule],
-  controllers: [LoginController],
-  providers: [LoginService],
+	imports: [AuthModule],
+	controllers: [LoginController],
+	providers: [LoginService],
 })
 export class LoginModule {}

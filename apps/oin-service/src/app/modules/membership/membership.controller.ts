@@ -16,21 +16,18 @@ import { MembershipLevelEntity } from '@server/app/entitys/membership-level.enti
 
 @Controller('membership')
 export class MembershipController {
-  constructor(private readonly membershipService: MembershipService) {}
+	constructor(private readonly membershipService: MembershipService) {}
 
-  @Get()
-  findAll(): Promise<MembershipLevelEntity[]> {
-    return this.membershipService.findAll();
-  }
+	@Get()
+	findAll(): Promise<MembershipLevelEntity[]> {
+		return this.membershipService.findAll();
+	}
 
-  /**
-   * 创建一个新的等级，在线上环境可能预先刷数据，不允许调用方法创建等级
-   */
-  @Post()
-  create(
-    @Body() membershipLevel: MembershipLevelEntity
-  ): Promise<MembershipLevelEntity> {
-    return this.membershipService.create(membershipLevel);
-  }
-
+	/**
+	 * 创建一个新的等级，在线上环境可能预先刷数据，不允许调用方法创建等级
+	 */
+	@Post()
+	create(@Body() membershipLevel: MembershipLevelEntity): Promise<MembershipLevelEntity> {
+		return this.membershipService.create(membershipLevel);
+	}
 }

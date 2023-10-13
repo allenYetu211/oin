@@ -1,16 +1,16 @@
 {
-  "name": "maps",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/maps/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/maps/**/*.{ts,tsx,js,jsx}"]
-      }
-    }
-  }
+	"name": "maps",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/maps/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/maps/**/*.{ts,tsx,js,jsx}"]
+			}
+		}
+	}
 }

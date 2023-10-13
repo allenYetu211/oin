@@ -10,14 +10,13 @@ import { useAuthStore, AuthTypesConfigState } from './store';
 
 const setSetting = useAuthStore.setState;
 
-
 /**
  * ------------------------------------------------------------------------------------------
  * 设置 Auth 信息
  * ------------------------------------------------------------------------------------------
  */
 export const setAuthOinState = (newState: Partial<AuthTypesConfigState>) => {
-  setSetting(() => ({ ...newState }));
+	setSetting(() => ({ ...newState }));
 };
 
 /**
@@ -25,8 +24,6 @@ export const setAuthOinState = (newState: Partial<AuthTypesConfigState>) => {
  * 获取 整体 oin 内容信息
  * ------------------------------------------------------------------------------------------
  */
-export const getAuthOinState = (state: keyof AuthTypesConfigState)  => {
-  return useAuthStore.getState()[state];
-}
-
-
+export const getAuthOinState = (state: keyof AuthTypesConfigState) => {
+	return useAuthStore.getState()[state];
+};

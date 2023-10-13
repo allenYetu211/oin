@@ -11,17 +11,17 @@
 import { Button, Text, Card } from '@libs/ui';
 
 export default function Index() {
-  return (
-    <>
-      <Card>
-        <Button
-          onClick={() => {
-            console.log('button');
-          }}
-        >
-          <Text>Button</Text>
-        </Button>
-      </Card>
-    </>
-  );
+	return (
+		<>
+			<Card>
+				<Button
+					onClick={() => {
+						console.log('button');
+					}}
+				>
+					<Text>Button</Text>
+				</Button>
+			</Card>
+		</>
+	);
 }

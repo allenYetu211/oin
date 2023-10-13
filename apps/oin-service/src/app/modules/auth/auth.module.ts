@@ -20,22 +20,19 @@ import { JwtStrategy } from './jwt.strategy';
 https://docs.nestjs.com/modules
 */
 
-console.log(
-  'imports: process.env.SERVICE_SECRET_KEY',
-  process.env.SERVICE_SECRET_KEY
-);
+console.log('imports: process.env.SERVICE_SECRET_KEY', process.env.SERVICE_SECRET_KEY);
 
 @Module({
-  imports: [
-    UserModule,
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.SERVICE_SECRET_KEY || 'secret_key', // 这个应该是一个安全的密钥，用于JWT签名
-      signOptions: { expiresIn: '1h' }, // 设置JWT的过期时间
-    }),
-  ],
-  controllers: [],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
-  exports: [AuthService],
+	imports: [
+		UserModule,
+		PassportModule,
+		JwtModule.register({
+			secret: process.env.SERVICE_SECRET_KEY || 'secret_key', // 这个应该是一个安全的密钥，用于JWT签名
+			signOptions: { expiresIn: '1h' }, // 设置JWT的过期时间
+		}),
+	],
+	controllers: [],
+	providers: [AuthService, LocalStrategy, JwtStrategy],
+	exports: [AuthService],
 })
 export class AuthModule {}

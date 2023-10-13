@@ -15,20 +15,20 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: process.env.SERVICE_SECRET_KEY || 'secret_key',
-    });
-  }
+	constructor(private authService: AuthService) {
+		super({
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			ignoreExpiration: false,
+			secretOrKey: process.env.SERVICE_SECRET_KEY || 'secret_key',
+		});
+	}
 
-  async validate(payload: any) {
-    /** 通过 jwt 解析的 user_id 查询相关的用户信息 */
-    const user = await this.authService.validateUserById(payload.sub);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
-  }
+	async validate(payload: any) {
+		/** 通过 jwt 解析的 user_id 查询相关的用户信息 */
+		const user = await this.authService.validateUserById(payload.sub);
+		if (!user) {
+			throw new UnauthorizedException();
+		}
+		return user;
+	}
 }

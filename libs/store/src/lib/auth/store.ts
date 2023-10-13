@@ -12,24 +12,21 @@ import { persist } from 'zustand/middleware';
 export type AuthTyps = { oin_token: string };
 
 export interface AuthTypesConfigState {
-  'oin-token': string;
+	'oin-token': string;
 }
 
 const excludeKeys: string[] = [''];
 
 const initialLoginState = {
-  'oin-token': '',
+	'oin-token': '',
 };
 
-const store = () => ({ ...initialLoginState } as AuthTypesConfigState);
-
+const store = () => ({ ...initialLoginState }) as AuthTypesConfigState;
 
 export const useAuthStore = create<AuthTypesConfigState>()(
-  persist(store, {
-    name: 'auth',
-    partialize: (state) =>
-      Object.fromEntries(
-        Object.entries(state).filter(([key]) => !excludeKeys.includes(key))
-      ),
-  })
+	persist(store, {
+		name: 'auth',
+		partialize: (state) =>
+			Object.fromEntries(Object.entries(state).filter(([key]) => !excludeKeys.includes(key))),
+	}),
 );

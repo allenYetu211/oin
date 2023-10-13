@@ -2,19 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .vc-switch {
-  right: auto !important;
-  left: 10px !important;
+	right: auto !important;
+	left: 10px !important;
 }
-
 
 /* .amap-control.amap-geolocation {
   bottom: 100px !important;
 } */
 
-
 .amap-logo,
 .amap-copyright {
-  display: none !important;
+	display: none !important;
 }

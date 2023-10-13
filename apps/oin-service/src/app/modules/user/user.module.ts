@@ -22,14 +22,14 @@ import { PhoneVerificationModule } from '@server/app/modules/phone-verification/
 import { UserEntity } from '@server/app/entitys/user.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserEntity]),
-    MembershipModule,
-    RoleModule,
-    PhoneVerificationModule
-  ],
-  controllers: [UserController],
-  providers: [UserService],
-  exports: [UserService],
+	imports: [
+		TypeOrmModule.forFeature([UserEntity]),
+		MembershipModule,
+		RoleModule,
+		PhoneVerificationModule,
+	],
+	controllers: [UserController],
+	providers: [UserService],
+	exports: [UserService],
 })
 export class UserModule {}

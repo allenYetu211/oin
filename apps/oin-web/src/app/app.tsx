@@ -11,11 +11,11 @@ import { MapsComp } from './maps';
 import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
-  return (
-    <div className="mb-20">
-      <MapsComp />
-    </div>
-  );
+	return (
+		<div className="mb-20">
+			<MapsComp />
+		</div>
+	);
 }
 
 export default App;

@@ -17,15 +17,13 @@ import { NextUIProvider } from '@nextui-org/react';
 
 // new VConsole();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <StrictMode>
-    <NextUIProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </NextUIProvider>
-  </StrictMode>
+	<StrictMode>
+		<NextUIProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</NextUIProvider>
+	</StrictMode>,
 );

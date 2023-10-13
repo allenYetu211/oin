@@ -15,17 +15,16 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
-    super();
-  }
+	constructor(private authService: AuthService) {
+		super();
+	}
 
-  //  在拦截器当中， 传入的方法已经被注定处理 ，只检查body 中的 username  password
-  async validate(username: string, password: string): Promise<any> {
-
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
-  }
+	//  在拦截器当中， 传入的方法已经被注定处理 ，只检查body 中的 username  password
+	async validate(username: string, password: string): Promise<any> {
+		const user = await this.authService.validateUser(username, password);
+		if (!user) {
+			throw new UnauthorizedException();
+		}
+		return user;
+	}
 }
