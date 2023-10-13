@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:53:15
- * @LastEditTime: 2023-10-12 11:40:26
+ * @LastEditTime: 2023-10-12 18:08:01
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.service.ts
  */
@@ -25,7 +25,7 @@ export class UserService implements OnModuleInit {
     private readonly userRepository: Repository<UserEntity>,
     private readonly membershipService: MembershipService,
     private readonly roleService: RoleService,
-    private readonly phoneVerificationService: PhoneVerificationService,
+    private readonly phoneVerificationService: PhoneVerificationService
   ) {}
 
   async onModuleInit() {
@@ -77,7 +77,7 @@ export class UserService implements OnModuleInit {
   /**
    * 通过手机创建用户
    */
-  async createUserPhone( user: Partial<UserEntity>, authCode: string ) {
+  async createUserPhone(user: Partial<UserEntity>, authCode: string) {
     // 验证手机
   }
 
@@ -109,9 +109,11 @@ export class UserService implements OnModuleInit {
       },
     };
 
+    //
     if (handlers[type]) {
       try {
-        handlers[type]();
+        //  如果不存在则跳出 if 内容，执行后续内容。
+        await handlers[type]();
       } catch (e) {
         throw new ConflictException(`User with ${e} already exists`);
       }
@@ -120,16 +122,19 @@ export class UserService implements OnModuleInit {
     }
 
     try {
+      console.log('membershipLevel');
       // 新建用户的会员的等级为 1
       const membershipLevel = await this.membershipService.findMembershipLevel(
         1
       );
+
       // 新建用户的角色的等级为 1
       const role = await this.roleService.findOne(1);
       user.membershipLevel = membershipLevel;
       user.role = role;
       return await this.userRepository.save(user);
     } catch (error) {
+      logger.error(`create user error: ${error}`);
       if (
         error instanceof QueryFailedError &&
         error.message.includes('Duplicate entry')
@@ -142,17 +147,17 @@ export class UserService implements OnModuleInit {
     }
   }
 
-  async update(user_id: number, user: UserEntity): Promise<UserEntity> {
+  async update(user_id: string, user: UserEntity): Promise<UserEntity> {
     await this.userRepository.update(user_id, user);
     return await this.findOne({ user_id });
   }
 
-  async remove(user_id: number): Promise<void> {
+  async remove(user_id: string): Promise<void> {
     await this.userRepository.delete(user_id);
   }
 
   async updateMembershipLevel(
-    user_id: number,
+    user_id: string,
     level_id: number
   ): Promise<UserEntity> {
     const membershipLevel = await this.membershipService.findMembershipLevel(
@@ -169,7 +174,7 @@ export class UserService implements OnModuleInit {
   /**
    * 查找用户是否已经存在
    */
-  private async findExistinguser(user: Partial<UserEntity>) {
+  private async findExistinguser(user: any) {
     const existingUser = await this.userRepository.findOne({
       where: user,
     });

@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 17:52:58
- * @LastEditTime: 2023-10-12 14:53:27
+ * @LastEditTime: 2023-10-12 17:00:56
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/user/user.controller.ts
  */
@@ -55,7 +55,7 @@ export class UserController {
   @Get(':id')
   @Permissions('1')
   @UseGuards(LoginAuthGuard, PermissionGuard)
-  findOne(@Param('id') id: number): Promise<UserEntity> {
+  findOne(@Param('id') id: string): Promise<UserEntity> {
     return this.userService.findOne({ user_id: id });
   }
 
@@ -88,9 +88,9 @@ export class UserController {
   ): Promise<UserEntity> {
     //  先确认验证码是否正确
      const valid = await this.phoneVerificationService.verifyRegistration(phone, authCode);
-     console.log('valid', valid)
      if (valid ) {
-      return this.userService.create({phone}, 'phone');
+      const testInfo =  await this.userService.create({phone}, 'phone');
+      return testInfo
      } else {
       throw new HttpException('Invalid verification code', HttpStatus.BAD_REQUEST);
      }
@@ -102,7 +102,7 @@ export class UserController {
   @Put(':id')
   @UseGuards(LoginAuthGuard)
   update(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() user: UserEntity
   ): Promise<UserEntity> {
     return this.userService.update(id, user);
@@ -111,7 +111,7 @@ export class UserController {
   @Delete(':id')
   @Permissions('2')
   @UseGuards(LoginAuthGuard, PermissionGuard)
-  remove(@Param('id') id: number): Promise<void> {
+  remove(@Param('id') id: string): Promise<void> {
     return this.userService.remove(id);
   }
 
@@ -123,7 +123,7 @@ export class UserController {
   @UseGuards(LoginAuthGuard, PermissionGuard)
   updateMembershipLevel(
     @Body() body: { level: number },
-    @Param('id') user_id: number
+    @Param('id') user_id: string
   ): Promise<UserEntity> {
     return this.userService.updateMembershipLevel(user_id, body.level);
   }

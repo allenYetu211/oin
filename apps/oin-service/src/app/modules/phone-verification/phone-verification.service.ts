@@ -51,6 +51,9 @@ export class PhoneVerificationService {
     }
   }
 
+  /**
+   *  查询数据库中的验证码是否过期
+   */
   async findActiveVerificationCode(
     phone: string
   ): Promise<PhoneVerificationEntity | null> {
@@ -63,20 +66,24 @@ export class PhoneVerificationService {
       },
     });
 
+    console.log('findActiveVerificationCode verification', verification)
+
     return verification;
   }
 
   /**
-   *  确定验证码是否过期
+   *  确定验证码是否与手机号绑定，并且是有效的
    */
   async verifyRegistration(phone: string, code: string): Promise<boolean> {
     const verification = await this.phoneVerificationRepository.findOne({
       where: {
         phone,
         code,
-        expiresAt: LessThan(new Date()), // 确保验证码尚未过期
+        // MoreThan 数据库中的事件是否超出当前出入的时间
+        expiresAt: MoreThan(new Date()), // 确保验证码尚未过期
       },
     });
+
 
     if (verification) {
       // 验证成功，删除已验证的验证码

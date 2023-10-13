@@ -2,7 +2,7 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-13 11:22:34
- * @LastEditTime: 2023-09-13 11:35:05
+ * @LastEditTime: 2023-10-12 18:47:38
  * @LastEditors: Allen OYang allenwill211@gmail.com
  * @FilePath: /oin/apps/oin-service/src/app/modules/auth/local.strategy.ts
  */
@@ -20,6 +20,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(username: string, password: string): Promise<any> {
+    console.log('validate', username)
+    console.log('validate', password)
+
     const user = await this.authService.validateUser(username, password);
     if (!user) {
       throw new UnauthorizedException();
