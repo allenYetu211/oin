@@ -1,7 +1,5 @@
 {
 	"semi": false,
-	"spaceBeforeFunctionParen": true,
-	"spaceBeforeBlocks": true,
 	"singleQuote": true,
 	"printWidth": 100,
 	"tabWidth": 2,
