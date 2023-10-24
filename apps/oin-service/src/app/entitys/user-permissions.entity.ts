@@ -10,7 +10,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
 import { UserEntity } from './user.entity'
 
-@Entity('user_permissions')
+@Entity('oin_user_permissions')
 export class UserPermissionsEntity {
 	@PrimaryGeneratedColumn()
 	permission_id: number // 权限唯一标识符

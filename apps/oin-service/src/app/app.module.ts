@@ -1,13 +1,9 @@
-import { PhoneVerificationModule } from './modules/phone-verification/phone-verification.module'
-import { LoginModule } from './modules/login/login.module'
-import { AuthModule } from './modules/auth/auth.module'
+
 /*
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
- * @Date: 2023-09-05 18:22:16
- * @LastEditTime: 2023-10-12 14:19:25
- * @LastEditors: Allen OYang allenwill211@gmail.com
- * @FilePath: /oin/apps/oin-service/src/app/app.module.ts
+ * @LastEditTime: 2023-10-24 11:16:34
+ * @LastEditors: Please set LastEditors
  */
 import { Module } from '@nestjs/common'
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
@@ -24,10 +20,13 @@ import { GlobalExceptionFilter } from '@server/app/filters/global-exception.filt
 /**
  * modules
  */
-import { UserModule } from '@server/app/modules/user/user.module'
 import { MembershipModule } from '@server/app/modules/membership/membership.module'
 import { RoleModule } from '@server/app/modules/role/role.module'
-
+import { UserModule } from '@server/app/modules/user/user.module'
+import { ArticleModule } from '@server/app/modules/article/article.module'
+import { AuthModule } from '@server/app/modules/auth/auth.module'
+import { LoginModule } from '@server/app/modules/login/login.module'
+import { PhoneVerificationModule } from '@server/app/modules/phone-verification/phone-verification.module'
 /**
  * interceptor
  */
@@ -40,7 +39,7 @@ dotenv.config()
 
 @Module({
 	imports: [
-		PhoneVerificationModule,
+		ArticleModule,
 		PhoneVerificationModule,
 		LoginModule,
 		AuthModule,

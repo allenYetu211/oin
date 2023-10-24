@@ -2,8 +2,8 @@
  * @Author: Allen OYang
  * @Email:  allenwill211@gmail.com
  * @Date: 2023-09-06 18:00:36
- * @LastEditTime: 2023-10-12 17:46:27
- * @LastEditors: Allen OYang allenwill211@gmail.com
+ * @LastEditTime: 2023-10-24 14:02:54
+ * @LastEditors: Please set LastEditors
  * @FilePath: /oin/apps/oin-service/src/app/entitys/user.entity.ts
  */
 // user.entity.ts
@@ -23,7 +23,7 @@ import { UserRoleEntity } from './user-role.entity'
 import { IsEmail, IsNotEmpty } from 'class-validator'
 import { v4 as uuidv4 } from 'uuid'
 
-@Entity('users')
+@Entity('oin_users')
 export class UserEntity {
 	// @PrimaryGeneratedColumn()  // 自增 id
 	// user_id: number; // 用户唯一标识符

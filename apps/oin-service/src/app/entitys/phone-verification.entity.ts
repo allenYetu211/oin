@@ -10,7 +10,7 @@
 
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
-@Entity()
+@Entity('oin_phone-verification')
 export class PhoneVerificationEntity {
 	@PrimaryGeneratedColumn()
 	id: number

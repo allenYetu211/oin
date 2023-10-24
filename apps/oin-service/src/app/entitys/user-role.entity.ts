@@ -8,7 +8,7 @@
  */
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
 
-@Entity('user_role')
+@Entity('oin_user_role')
 export class UserRoleEntity {
 	@PrimaryGeneratedColumn()
 	role_id: number

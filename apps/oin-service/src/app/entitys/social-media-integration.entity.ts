@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'
 import { UserEntity } from './user.entity'
 
-@Entity('social_media_integrations')
+@Entity('oin_social_media_integrations')
 export class SocialMediaIntegrationEntity {
 	@PrimaryGeneratedColumn()
 	integration_id: number // 集成唯一标识符

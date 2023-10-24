@@ -9,7 +9,7 @@ import {
 } from 'typeorm'
 import { UserEntity } from './user.entity'
 
-@Entity('user_logs')
+@Entity('oin_user_logs')
 export class UserLogsEntity {
 	@PrimaryGeneratedColumn()
 	log_id: number // 日志唯一标识符

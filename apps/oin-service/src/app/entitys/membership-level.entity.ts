@@ -9,7 +9,7 @@
 // membership-level.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
-@Entity('membership_levels')
+@Entity('oin_membership_levels')
 export class MembershipLevelEntity {
 	@PrimaryGeneratedColumn()
 	level_id: number // 会员等级唯一标识符

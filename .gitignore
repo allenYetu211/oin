@@ -124,3 +124,5 @@ apps/mobile-e2e/artifacts
 .next
 Service.openapi.json
 openapi
+cdk.out
+oin-db
